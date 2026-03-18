@@ -195,8 +195,8 @@ function RangePicker({ departDate, returnDate, onSelect }) {
   const [selecting, setSelecting] = React.useState(departDate ? "return" : "depart"); // which end we're picking next
   const [hoverDate, setHoverDate] = React.useState(null);
 
-  const toStr = d => d.toISOString().split("T")[0];
-  const fromStr = s => { const d = new Date(s); d.setHours(0,0,0,0); return d; };
+  const toStr = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const fromStr = s => { const [y,m,d] = s.split('-').map(Number); return new Date(y, m-1, d); };
 
   const dep = departDate ? fromStr(departDate) : null;
   const ret = returnDate ? fromStr(returnDate) : null;
