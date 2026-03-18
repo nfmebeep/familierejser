@@ -173,6 +173,202 @@ function WeatherWidget({ dest, departDate }) {
   );
 }
 
+
+// ─── CUSTOM DATO-RANGE-PICKER ────────────────────────────────────────────────
+function getISOWeek(dateStr) {
+  const d = new Date(dateStr);
+  const j = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  j.setUTCDate(j.getUTCDate() + 4 - (j.getUTCDay() || 7));
+  const y = j.getUTCFullYear();
+  const w1 = new Date(Date.UTC(y, 0, 4));
+  return 1 + Math.round(((j - w1) / 86400000 - 3 + (w1.getUTCDay() || 7)) / 7);
+}
+
+const UGEDAG = ["Ma", "Ti", "On", "To", "Fr", "Lø", "Sø"];
+const MAANED = ["Januar","Februar","Marts","April","Maj","Juni","Juli","August","September","Oktober","November","December"];
+
+function RangePicker({ departDate, returnDate, onSelect }) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const initMonth = departDate ? new Date(departDate) : new Date(today.getFullYear(), today.getMonth(), 1);
+  const [viewYear, setViewYear] = React.useState(initMonth.getFullYear());
+  const [viewMonth, setViewMonth] = React.useState(initMonth.getMonth());
+  const [selecting, setSelecting] = React.useState(departDate ? "return" : "depart"); // which end we're picking next
+  const [hoverDate, setHoverDate] = React.useState(null);
+
+  const toStr = d => d.toISOString().split("T")[0];
+  const fromStr = s => { const d = new Date(s); d.setHours(0,0,0,0); return d; };
+
+  const dep = departDate ? fromStr(departDate) : null;
+  const ret = returnDate ? fromStr(returnDate) : null;
+
+  function handleDayClick(d) {
+    if (d < today) return;
+    if (selecting === "depart" || !dep) {
+      // Set departure, clear return, switch to return
+      const next = new Date(d); next.setDate(next.getDate() + 7);
+      onSelect(toStr(d), toStr(next));
+      setSelecting("return");
+    } else {
+      // Setting return
+      if (d <= dep) {
+        // Clicked before departure — reset both
+        const next = new Date(d); next.setDate(next.getDate() + 7);
+        onSelect(toStr(d), toStr(next));
+        setSelecting("return");
+      } else {
+        onSelect(departDate, toStr(d));
+        setSelecting("depart");
+      }
+    }
+  }
+
+  // Build calendar grid for current view month
+  function buildGrid(year, month) {
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    // Mon=0 offset
+    let startDow = firstDay.getDay() - 1; if (startDow < 0) startDow = 6;
+    const days = [];
+    for (let i = 0; i < startDow; i++) days.push(null);
+    for (let d = 1; d <= lastDay.getDate(); d++) days.push(new Date(year, month, d));
+    return days;
+  }
+
+  // Show 2 months side by side (or stacked on narrow)
+  const months = [
+    { year: viewYear, month: viewMonth },
+    { year: viewMonth === 11 ? viewYear + 1 : viewYear, month: (viewMonth + 1) % 12 },
+  ];
+
+  function prevMonth() {
+    if (viewMonth === 0) { setViewYear(y => y - 1); setViewMonth(11); }
+    else setViewMonth(m => m - 1);
+  }
+  function nextMonth() {
+    if (viewMonth === 11) { setViewYear(y => y + 1); setViewMonth(0); }
+    else setViewMonth(m => m + 1);
+  }
+
+  function isInRange(d) {
+    if (!dep) return false;
+    const end = hoverDate && selecting === "return" ? hoverDate : ret;
+    if (!end) return false;
+    return d > dep && d < end;
+  }
+
+  function isStart(d) { return dep && toStr(d) === toStr(dep); }
+  function isEnd(d) {
+    const end = hoverDate && selecting === "return" ? hoverDate : ret;
+    return end && toStr(d) === toStr(end);
+  }
+  function isPast(d) { return d < today; }
+
+  // Get week number for first day of each row
+  function rowWeekNum(firstDayOfRow) {
+    if (!firstDayOfRow) return null;
+    return getISOWeek(toStr(firstDayOfRow));
+  }
+
+  return (
+    <div>
+      {/* Header: selected summary */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 16 }}>
+        <div onClick={() => setSelecting("depart")} style={{ padding: "12px 14px", border: `2px solid ${selecting === "depart" ? "#b85c2a" : "#ede8e0"}`, background: selecting === "depart" ? "#fdf3ec" : "#fff", cursor: "pointer" }}>
+          <div style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", color: "#b0a898", marginBottom: 4 }}>Afrejse</div>
+          {dep ? (
+            <>
+              <div style={{ fontSize: 15, fontWeight: 500, color: "#1a1a18" }}>{dep.toLocaleDateString("da-DK", { day: "numeric", month: "short" })}</div>
+              <div style={{ fontSize: 11, color: "#b85c2a" }}>Uge {getISOWeek(toStr(dep))}</div>
+            </>
+          ) : <div style={{ fontSize: 13, color: "#b0a898" }}>Vælg dato</div>}
+        </div>
+        <div onClick={() => dep && setSelecting("return")} style={{ padding: "12px 14px", border: `2px solid ${selecting === "return" ? "#b85c2a" : "#ede8e0"}`, background: selecting === "return" ? "#fdf3ec" : "#fff", cursor: dep ? "pointer" : "default", opacity: dep ? 1 : 0.5 }}>
+          <div style={{ fontSize: 9, letterSpacing: "0.15em", textTransform: "uppercase", color: "#b0a898", marginBottom: 4 }}>Hjemkomst</div>
+          {ret ? (
+            <>
+              <div style={{ fontSize: 15, fontWeight: 500, color: "#1a1a18" }}>{ret.toLocaleDateString("da-DK", { day: "numeric", month: "short" })}</div>
+              <div style={{ fontSize: 11, color: "#b85c2a" }}>Uge {getISOWeek(toStr(ret))} · {Math.round((ret - dep) / 86400000)} nætter</div>
+            </>
+          ) : <div style={{ fontSize: 13, color: "#b0a898" }}>{dep ? "Vælg hjemkomst" : "—"}</div>}
+        </div>
+      </div>
+
+      {/* Hint */}
+      <div style={{ fontSize: 11, color: "#b85c2a", marginBottom: 10, textAlign: "center" }}>
+        {selecting === "depart" ? "Tryk på afrejsedato" : "Tryk på hjemkomstdato"}
+      </div>
+
+      {/* Calendar nav */}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+        <button onClick={prevMonth} style={{ background: "none", border: "1px solid #ede8e0", width: 32, height: 32, fontFamily: "inherit", fontSize: 16, color: "#6a6058", cursor: "pointer" }}>‹</button>
+        <div style={{ fontSize: 13, fontWeight: 500, color: "#1a1a18" }}>
+          {MAANED[viewMonth]} {viewYear}
+        </div>
+        <button onClick={nextMonth} style={{ background: "none", border: "1px solid #ede8e0", width: 32, height: 32, fontFamily: "inherit", fontSize: 16, color: "#6a6058", cursor: "pointer" }}>›</button>
+      </div>
+
+      {/* Two month grids */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+        {months.map(({ year, month }, mi) => {
+          const grid = buildGrid(year, month);
+          // Chunk into weeks
+          const weeks = [];
+          for (let i = 0; i < grid.length; i += 7) weeks.push(grid.slice(i, i + 7));
+          // Pad last week
+          while (weeks[weeks.length - 1].length < 7) weeks[weeks.length - 1].push(null);
+
+          return (
+            <div key={mi}>
+              <div style={{ fontSize: 11, color: "#8a8078", textAlign: "center", marginBottom: 6 }}>
+                {mi === 1 ? `${MAANED[(viewMonth + 1) % 12]} ${viewMonth === 11 ? viewYear + 1 : viewYear}` : ""}
+              </div>
+              {/* Weekday headers + Uge col */}
+              <div style={{ display: "grid", gridTemplateColumns: "24px repeat(7, 1fr)", gap: 1, marginBottom: 4 }}>
+                <div style={{ fontSize: 9, color: "#c0b8b0", textAlign: "center" }}>Uge</div>
+                {UGEDAG.map(d => <div key={d} style={{ fontSize: 9, color: "#b0a898", textAlign: "center", fontWeight: 500 }}>{d}</div>)}
+              </div>
+              {/* Weeks */}
+              {weeks.map((week, wi) => {
+                const firstReal = week.find(d => d);
+                const wn = firstReal ? rowWeekNum(firstReal) : null;
+                return (
+                  <div key={wi} style={{ display: "grid", gridTemplateColumns: "24px repeat(7, 1fr)", gap: 1, marginBottom: 1 }}>
+                    <div style={{ fontSize: 9, color: "#c0b8b0", textAlign: "center", paddingTop: 6 }}>{wn}</div>
+                    {week.map((d, di) => {
+                      if (!d) return <div key={di} />;
+                      const past = isPast(d);
+                      const start = isStart(d);
+                      const end = isEnd(d);
+                      const inRange = isInRange(d);
+                      return (
+                        <button key={di}
+                          onClick={() => !past && handleDayClick(d)}
+                          onMouseEnter={() => !past && selecting === "return" && dep && d > dep && setHoverDate(d)}
+                          onMouseLeave={() => setHoverDate(null)}
+                          style={{
+                            padding: "5px 0", border: "none", fontFamily: "inherit", fontSize: 12,
+                            background: start || end ? "#b85c2a" : inRange ? "#fdf3ec" : "transparent",
+                            color: start || end ? "#fff" : past ? "#d8d0c4" : "#1a1a18",
+                            fontWeight: start || end ? 700 : 400,
+                            cursor: past ? "default" : "pointer",
+                            borderRadius: start ? "3px 0 0 3px" : end ? "0 3px 3px 0" : 0,
+                            textAlign: "center",
+                          }}>
+                          {d.getDate()}
+                        </button>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 // ─── DESTINATION DATABASE ─────────────────────────────────────────────────────
 const DESTINATIONS = [
   {
@@ -1100,41 +1296,13 @@ export default function App() {
       {step === 3 && (
         <OnboardStep step={3} total={5} title="Hvornår skal I afsted?" sub="Vælg datoer — vi finder det bedste interval." onBack={() => setStep(2)}>
 
-          {/* Afrejsedato */}
-          <div style={{ marginBottom: 24 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#b0a898", fontWeight: 500 }}>Afrejse</div>
-              {departDate && <div style={{ fontSize: 12, color: "#b85c2a", fontWeight: 500 }}>Uge {(() => { const v = departDate; const d = new Date(v); const j = new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); j.setUTCDate(j.getUTCDate()+4-(j.getUTCDay()||7)); const y = j.getUTCFullYear(); const w1 = new Date(Date.UTC(y,0,4)); return 1+Math.round(((j-w1)/86400000-3+(w1.getUTCDay()||7))/7); })()}</div>}
-            </div>
-            <input type="date" value={departDate} onChange={e => {
-              const val = e.target.value;
-              setDepartDate(val);
-              // Sæt altid hjemkomst til afrejse + 7 dage
-              if (val) {
-                const d = new Date(val);
-                d.setDate(d.getDate() + 7);
-                setReturnDate(d.toISOString().split("T")[0]);
-              }
-            }}
-              min={new Date().toISOString().split("T")[0]}
-              style={{ width: "100%", padding: "14px 16px", border: "1.5px solid #ede8e0", background: "#fff", fontFamily: "inherit", fontSize: 16, color: "#1a1a18", outline: "none" }} />
-
-          </div>
-
-          {/* Hjemkomstdato */}
+          {/* Dato-range-picker */}
           <div style={{ marginBottom: 28 }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 12 }}>
-              <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#b0a898", fontWeight: 500 }}>Hjemkomst</div>
-              {returnDate && <div style={{ fontSize: 12, color: "#b85c2a", fontWeight: 500 }}>Uge {(() => { const v = returnDate; const d = new Date(v); const j = new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())); j.setUTCDate(j.getUTCDate()+4-(j.getUTCDay()||7)); const y = j.getUTCFullYear(); const w1 = new Date(Date.UTC(y,0,4)); return 1+Math.round(((j-w1)/86400000-3+(w1.getUTCDay()||7))/7); })()}</div>}
-            </div>
-            <input type="date" value={returnDate} onChange={e => setReturnDate(e.target.value)}
-              min={departDate || new Date().toISOString().split("T")[0]}
-              style={{ width: "100%", padding: "14px 16px", border: "1.5px solid #ede8e0", background: "#fff", fontFamily: "inherit", fontSize: 16, color: "#1a1a18", outline: "none" }} />
-            {departDate && returnDate && (
-              <div style={{ fontSize: 12, color: "#b85c2a", marginTop: 6 }}>
-                {Math.round((new Date(returnDate) - new Date(departDate)) / 86400000)} nætter
-              </div>
-            )}
+            <RangePicker
+              departDate={departDate}
+              returnDate={returnDate}
+              onSelect={(dep, ret) => { setDepartDate(dep); setReturnDate(ret); }}
+            />
           </div>
 
           {/* Fleksibilitet */}
