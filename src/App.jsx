@@ -204,16 +204,14 @@ function RangePicker({ departDate, returnDate, onSelect }) {
   function handleDayClick(d) {
     if (d < today) return;
     if (selecting === "depart" || !dep) {
-      // Set departure, clear return, switch to return
-      const next = new Date(d); next.setDate(next.getDate() + 7);
-      onSelect(toStr(d), toStr(next));
+      // Sæt afrejse — ryd hjemkomst, vent på at bruger vælger den
+      onSelect(toStr(d), "");
       setSelecting("return");
     } else {
       // Setting return
       if (d <= dep) {
-        // Clicked before departure — reset both
-        const next = new Date(d); next.setDate(next.getDate() + 7);
-        onSelect(toStr(d), toStr(next));
+        // Klik før afrejse — sæt ny afrejse, ryd hjemkomst
+        onSelect(toStr(d), "");
         setSelecting("return");
       } else {
         onSelect(departDate, toStr(d));
