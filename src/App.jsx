@@ -896,11 +896,351 @@ const DESTINATIONS = [
     currency: "BGN",
     weatherJuly: "29°C, sol",
   },
+
+  // ── NYE FLY-DESTINATIONER ────────────────────────────────────────────────────
+  {
+    id: "tyrkiet",
+    lat: 31.9984, lon: 31.1665,
+    image: "/images/tyrkiet.jpg",
+    visual: { sky: "#2980b9", sea: "#1a5276", sand: "#f9e79f", accent: "#e74c3c", emoji: "🌙", label: "Rivieraen" },
+    segment: 'tryghed', allInclusive: true, vibeScore: { tryghed: 92, opdagelse: 38 },
+    travelMode: "fly",
+    name: "Tyrkiet (Alanya & Side)",
+    country: "Tyrkiet",
+    flag: "🇹🇷",
+    iata: "AYT",
+    region: "Middelhavet",
+    tagline: "Europas bedste all-inclusive til familierne",
+    flightTime: 3.8,
+    airports: ["CPH", "BLL", "AAL"],
+    budgetLevel: [1, 2],
+    minChildAge: 0,
+    bestMonths: [5, 6, 7, 8, 9, 10],
+    schoolHolidays: ["sommer", "efterår"],
+    highlights: ["All-inclusive", "Strand", "Vandpark", "Basarer"],
+    familyScore: 91,
+    whyFamily: "Tyrkiet giver mest mulig ferie for pengene — store all-inclusive resorts med vandlande, lange sandstrande og varm sø. Børnene elsker det.",
+    priceFrom: 2800,
+    hotelTypes: ["All-inclusive", "Familieresort"],
+    safety: 2,
+    kidActivities: ["Land of Legends forlystelsespark", "Alanya-borgen", "Dyksafari", "Vandscootere", "Bazar-besøg i Side"],
+    tipFrom: "Side er mere autentisk og familievenligt end Alanya. Vælg et hotel med eget vandland — det er pengene værd med børn.",
+    driveFromBeach: 0,
+    visa: true,
+    currency: "TRY",
+    weatherJuly: "32°C, sol",
+  },
+  {
+    id: "cypern",
+    lat: 34.9174, lon: 33.6338,
+    image: "/images/cypern.jpg",
+    visual: { sky: "#f39c12", sea: "#2471a3", sand: "#f9e79f", accent: "#8e44ad", emoji: "🏛️", label: "Middelhavet" },
+    segment: 'tryghed', allInclusive: false, vibeScore: { tryghed: 85, opdagelse: 55 },
+    travelMode: "fly",
+    name: "Cypern",
+    country: "Cypern",
+    flag: "🇨🇾",
+    iata: "PFO",
+    region: "Middelhavet",
+    tagline: "Solrig ø med perfekt familievejr og rolige strande",
+    flightTime: 4.2,
+    airports: ["CPH"],
+    budgetLevel: [2, 3],
+    minChildAge: 0,
+    bestMonths: [4, 5, 6, 7, 8, 9, 10],
+    schoolHolidays: ["sommer", "efterår"],
+    highlights: ["Strand", "Klart vand", "Vandpark", "Antikke ruiner"],
+    familyScore: 87,
+    whyFamily: "Cypern har noget af Middelhavets klareste vand, gode familiehoteller og næsten garanteret sol. Engelsk er udbredt — nemt for familien.",
+    priceFrom: 4200,
+    hotelTypes: ["Familiehotel", "Ferielejlighed", "Resort"],
+    safety: 1,
+    kidActivities: ["Waterworld Ayia Napa — Europas største vandpark", "Nissi Beach", "Cape Greco snorkling", "Aphroditebjerget vandring", "Limassol Zoo"],
+    tipFrom: "Paphos i vest er roligere og mere familievenligt end Ayia Napa. Waterworld vandpark er dog værd at tage en dagstur til.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "EUR",
+    weatherJuly: "33°C, sol",
+  },
+  {
+    id: "kreta",
+    lat: 35.2401, lon: 25.1142,
+    image: "/images/kreta.jpg",
+    visual: { sky: "#5dade2", sea: "#1f618d", sand: "#fdebd0", accent: "#e74c3c", emoji: "🫒", label: "Kreta" },
+    segment: 'begge', allInclusive: false, vibeScore: { tryghed: 80, opdagelse: 72 },
+    travelMode: "fly",
+    name: "Kreta",
+    country: "Grækenland",
+    flag: "🇬🇷",
+    iata: "HER",
+    region: "Ægæerhavet",
+    tagline: "Grækenlands største ø — strande, bjerge og kultur",
+    flightTime: 3.7,
+    airports: ["CPH", "BLL", "AAL"],
+    budgetLevel: [1, 2, 3],
+    minChildAge: 0,
+    bestMonths: [5, 6, 7, 8, 9, 10],
+    schoolHolidays: ["sommer", "efterår"],
+    highlights: ["Strand", "Kløfter", "Antikke ruiner", "Bjerglandskab"],
+    familyScore: 90,
+    whyFamily: "Kreta er stor nok til at have noget for enhver smag — rolige familiebadestrande, vandreture i Samaria-kløften og autentisk græsk mad.",
+    priceFrom: 3200,
+    hotelTypes: ["All-inclusive", "Familiehotel", "Ferielejlighed"],
+    safety: 1,
+    kidActivities: ["Samaria-kløften vandring (voksne)", "Knossos minoisk palads", "Elafonisi pink sand strand", "Aquaworld Heraklion", "Bådudflugt til Spinalonga"],
+    tipFrom: "Chania i vest er den smukkeste by. Rethymno er bedst for familier med yngre børn — lavt hav og gode sandstrande.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "EUR",
+    weatherJuly: "28°C, sol",
+  },
+  {
+    id: "santorini",
+    lat: 36.3932, lon: 25.4615,
+    image: "/images/santorini.jpg",
+    visual: { sky: "#85c1e9", sea: "#1f618d", sand: "#f0f3f4", accent: "#e74c3c", emoji: "🌋", label: "Ægæerhavet" },
+    segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 55, opdagelse: 85 },
+    travelMode: "fly",
+    name: "Santorini & Kykladerne",
+    country: "Grækenland",
+    flag: "🇬🇷",
+    iata: "JTR",
+    region: "Ægæerhavet",
+    tagline: "De ikoniske blå kupler — nu med børnene",
+    flightTime: 3.5,
+    airports: ["CPH"],
+    budgetLevel: [3],
+    minChildAge: 5,
+    bestMonths: [5, 6, 9, 10],
+    schoolHolidays: ["sommer", "efterår"],
+    highlights: ["Ikonisk natur", "Vulkan", "Solnedgang", "Ø-hop"],
+    familyScore: 76,
+    whyFamily: "Santorini er en af verdens smukkeste oplevelser — og børn over 5 husker det for altid. Kombiner med Paros eller Naxos for strand og afslapning.",
+    priceFrom: 7500,
+    hotelTypes: ["Boutique hotel", "Ferielejlighed"],
+    safety: 1,
+    kidActivities: ["Vulkan-sejltur til Nea Kameni", "Røde og sorte vulkanstrande", "Oia solnedgang", "Ø-hop til Paros med færge", "Æselridning i Oia (omdiskuteret)"],
+    tipFrom: "Juli-august er overfyldt og dyrt. Maj/juni eller september er bedst. Kombiner Santorini (2 nætter) med Naxos (5 nætter) — bedste strand i Kykladerne.",
+    driveFromBeach: 10,
+    visa: false,
+    currency: "EUR",
+    weatherJuly: "27°C, sol og vind",
+  },
+
+  // ── KØR-SELV DESTINATIONER ────────────────────────────────────────────────────
+  {
+    id: "sydfrankrig",
+    lat: 43.6047, lon: 1.4442,
+    image: "/images/sydfrankrig.jpg",
+    visual: { sky: "#f39c12", sea: "#2471a3", sand: "#f9e79f", accent: "#8e44ad", emoji: "🌻", label: "Provence" },
+    segment: 'begge', allInclusive: false, vibeScore: { tryghed: 72, opdagelse: 78 },
+    travelMode: "bil",
+    name: "Sydfrankrig",
+    country: "Frankrig",
+    flag: "🇫🇷",
+    iata: "NCE",
+    region: "Middelhavet",
+    tagline: "Lavendelmarker, Côte d'Azur og autentisk Frankrig",
+    flightTime: 0,
+    driveFromCph: 17,
+    airports: [],
+    budgetLevel: [2, 3],
+    minChildAge: 3,
+    bestMonths: [6, 7, 8],
+    schoolHolidays: ["sommer"],
+    highlights: ["Lavendel", "Strand", "Mad", "Middelalderby"],
+    familyScore: 87,
+    whyFamily: "Sydfrankrig er en klassisk bil-destination — campingpladser, gîtes og ferielejligheder langs vejen. Børn elsker marchéerne og stranden.",
+    priceFrom: 5000,
+    hotelTypes: ["Gîte / ferielejlighed", "Campingplads", "Boutique hotel"],
+    safety: 1,
+    kidActivities: ["Pont du Gard romersk akvædukt", "Lavendelmarker i Valensole", "Strandene ved Marseille", "Nice Promenade", "Avignon paveslot"],
+    tipFrom: "Provence er jul-august meget turistet. Kombiner en uge i Provence med en uge på Côte d'Azur. Book gîte tidligt — de bedste er udlejede i januar.",
+    driveFromBeach: 60,
+    visa: false,
+    currency: "EUR",
+    weatherJuly: "30°C, sol",
+  },
+  {
+    id: "gardasoeen",
+    lat: 45.6389, lon: 10.7196,
+    image: "/images/gardasoeen.jpg",
+    visual: { sky: "#5dade2", sea: "#2471a3", sand: "#abebc6", accent: "#27ae60", emoji: "⛵", label: "Norditalien" },
+    segment: 'begge', allInclusive: false, vibeScore: { tryghed: 78, opdagelse: 70 },
+    travelMode: "bil",
+    name: "Gardasøen",
+    country: "Italien",
+    flag: "🇮🇹",
+    iata: "VRN",
+    region: "Norditalien",
+    tagline: "Italiens smukkeste sø — perfekt til kør-selv-familien",
+    flightTime: 0,
+    driveFromCph: 14,
+    airports: [],
+    budgetLevel: [2, 3],
+    minChildAge: 0,
+    bestMonths: [5, 6, 7, 8, 9],
+    schoolHolidays: ["sommer"],
+    highlights: ["Sø", "Vandpark", "Citronplantager", "Bjerglandskab"],
+    familyScore: 92,
+    whyFamily: "Gardasøen er måske den bedste kør-selv-destination for danske familier — varmt klima, fantastisk sceneri og Gardaland forlystelsespark.",
+    priceFrom: 4500,
+    hotelTypes: ["Campingplads", "Ferielejlighed", "Hotel"],
+    safety: 1,
+    kidActivities: ["Gardaland forlystelsespark", "Canevaworld vandpark", "Sejltur på søen", "Windsurfing i Riva del Garda", "Verona dagstur"],
+    tipFrom: "Nordbredden (Riva del Garda, Malcesine) er smukkest og koldest om natten. Sydbredden (Sirmione, Peschiera) er varmest og mest familievenlig.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "EUR",
+    weatherJuly: "28°C, sol",
+  },
+  {
+    id: "norge-fjorde",
+    lat: 60.4720, lon: 8.4689,
+    image: "/images/norge.jpg",
+    visual: { sky: "#2980b9", sea: "#1a5276", sand: "#abebc6", accent: "#27ae60", emoji: "🏔️", label: "Fjordnorge" },
+    segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 60, opdagelse: 90 },
+    travelMode: "bil",
+    name: "Norge — Fjordlandet",
+    country: "Norge",
+    flag: "🇳🇴",
+    iata: "BGO",
+    region: "Skandinavien",
+    tagline: "Verdens smukkeste natur — med familien i bilen",
+    flightTime: 0,
+    driveFromCph: 6,
+    airports: [],
+    budgetLevel: [2, 3],
+    minChildAge: 3,
+    bestMonths: [6, 7, 8],
+    schoolHolidays: ["sommer"],
+    highlights: ["Fjorde", "Vandfald", "Kajak", "Midnatssol"],
+    familyScore: 88,
+    whyFamily: "Norge er den ultimative naturoplevelse der er tilgængelig med bil. Børn der har set Nærøyfjord fra kajak glemmer det aldrig.",
+    priceFrom: 8000,
+    hotelTypes: ["Hytte / cabin", "Camping", "Familiehotel"],
+    safety: 1,
+    kidActivities: ["Nærøyfjord kajak", "Flåmsbanen tog", "Kjeragbolten vandring (voksne)", "Trolltunga (lange vandring)", "Laksefiskeri"],
+    tipFrom: "Start i Bergen, kør Sognefjord-ruten og slut i Geiranger. Book hytter minimum 3 måneder i forvejen — de populære er udlejede tidligt.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "NOK",
+    weatherJuly: "20°C, variabelt",
+  },
+  {
+    id: "sverige-bohuslan",
+    lat: 58.2528, lon: 11.4542,
+    image: "/images/bohuslan.jpg",
+    visual: { sky: "#85c1e9", sea: "#2471a3", sand: "#f9e79f", accent: "#e74c3c", emoji: "🦞", label: "Bohuslän" },
+    segment: 'tryghed', allInclusive: false, vibeScore: { tryghed: 88, opdagelse: 52 },
+    travelMode: "bil",
+    name: "Bohuslän & Vestkysten",
+    country: "Sverige",
+    flag: "🇸🇪",
+    iata: "GOT",
+    region: "Skandinavien",
+    tagline: "Klipper, hummer og hygge — tæt på Danmark",
+    flightTime: 0,
+    driveFromCph: 2,
+    airports: [],
+    budgetLevel: [1, 2],
+    minChildAge: 0,
+    bestMonths: [6, 7, 8],
+    schoolHolidays: ["sommer"],
+    highlights: ["Klipper", "Fiskerleje", "Hummer", "Badning"],
+    familyScore: 89,
+    whyFamily: "Bohuslän er den nemme valg for danske familier — 2 timer fra Øresund, trygt, børnevenligt og utrolig smukt. Krabber, klipper og istider.",
+    priceFrom: 3000,
+    hotelTypes: ["Sommerhus / stuga", "Campingplads", "Vandrehjem"],
+    safety: 1,
+    kidActivities: ["Krabber og reje-fiskning fra bryggen", "Smøgen fiskerby", "Lysekil akvarium", "Pilane skulpturpark", "Kayak ved skærene"],
+    tipFrom: "Smögen og Fjällbacka er de smukkeste fiskerlejer. Book stuga tidligt — det populære er udlejede allerede i vinter. Billiger end Danmark.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "SEK",
+    weatherJuly: "22°C, variabelt",
+  },
+  {
+    id: "tyskland-bayern",
+    lat: 48.1351, lon: 11.5820,
+    image: "/images/bayern.jpg",
+    visual: { sky: "#5dade2", sea: "#2471a3", sand: "#abebc6", accent: "#e74c3c", emoji: "🏰", label: "Bayern" },
+    segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 75, opdagelse: 80 },
+    travelMode: "bil",
+    name: "Bayern & Østrig",
+    country: "Tyskland / Østrig",
+    flag: "🇩🇪",
+    iata: "MUC",
+    region: "Centraleuropa",
+    tagline: "Borge, alpesøer og forlystelsesparker",
+    flightTime: 0,
+    driveFromCph: 9,
+    airports: [],
+    budgetLevel: [2, 3],
+    minChildAge: 3,
+    bestMonths: [6, 7, 8],
+    schoolHolidays: ["sommer"],
+    highlights: ["Borge", "Alperne", "Forlystelsesparker", "Søer"],
+    familyScore: 88,
+    whyFamily: "Bayern er drømmemålet for bileventyrere — Neuschwanstein-borgen, Legoland Günzburg, Chiemsee-søen og Østrig lige om hjørnet.",
+    priceFrom: 4000,
+    hotelTypes: ["Hotel", "Ferielejlighed", "Campingplads"],
+    safety: 1,
+    kidActivities: ["Neuschwanstein-borgen", "Legoland Günzburg", "Chiemsee-søen badning", "Salzburg Mozart-byen", "Zugspitze med gondol"],
+    tipFrom: "Kombiner 3 nætter ved Chiemsee med 2 nætter i Berchtesgaden og en dag i Salzburg. Legoland er kun 90 min fra München.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "EUR",
+    weatherJuly: "24°C, variabelt",
+  },
+  {
+    id: "bornholm-bil",
+    lat: 55.1007, lon: 14.9046,
+    image: "/images/bornholm.jpg",
+    visual: { sky: "#85c1e9", sea: "#2471a3", sand: "#f9e79f", accent: "#e74c3c", emoji: "🌞", label: "Bornholm" },
+    segment: 'tryghed', allInclusive: false, vibeScore: { tryghed: 92, opdagelse: 45 },
+    travelMode: "bil",
+    name: "Bornholm",
+    country: "Danmark",
+    flag: "🇩🇰",
+    iata: "RNN",
+    region: "Danmark",
+    tagline: "Solens ø — cykling, røgeri og hvide sandstrande",
+    flightTime: 0,
+    driveFromCph: 2,
+    airports: [],
+    budgetLevel: [1, 2],
+    minChildAge: 0,
+    bestMonths: [6, 7, 8],
+    schoolHolidays: ["sommer"],
+    highlights: ["Cykling", "Strand", "Røgeri", "Klippekysten"],
+    familyScore: 90,
+    whyFamily: "Bornholm er den perfekte intro til kør-selv-ferien med børn — trygt, dansk, smuk natur og masser af aktiviteter. Færge fra Ystad.",
+    priceFrom: 2000,
+    hotelTypes: ["Sommerhus", "Camping", "Hotel"],
+    safety: 1,
+    kidActivities: ["Cykling på øens cykelstier", "Dueodde hvide sandstrand", "Hammershus", "Middelaldercentret", "Røgeri-besøg og sildemad"],
+    tipFrom: "Tag færgen fra Ystad (2 timer) — langt nemmere end Køge. Book sommerhus tidligt. Lej cykler lokalt — der er cykelstier overalt.",
+    driveFromBeach: 0,
+    visa: false,
+    currency: "DKK",
+    weatherJuly: "22°C, sol",
+  },
 ];
 
 
 // ─── SEGMENT-SPECIFIKKE TEKSTER ─────────────────────────────────────────────
 const SEGMENT_WHY = {'rhodos': {"tryghed": 'Rhodos er charter-klassikeren med god grund — all-inclusive, garanteret sol og strande der er skabt til børnefamilier. Alt er nemt og forudsigeligt.', "opdagelse": 'Rhodos har en af Middelhavets bedste middelalderborge og masser af natur ud over stranden — godt for familier der vil have begge dele.'}, 'kos': {"tryghed": 'Kos er den rolige græske ø — fladere end de fleste, lavvandet hav ved Tigaki og en afslappet stemning der giver ro i familien.', "opdagelse": 'Vulkaner, antikke ruiner og cykelture til fiskerlandsbyer — Kos er mere end sol og strand for dem der vil udforske.'}, 'lanzarote': {"tryghed": 'Lanzarote er sol og all-inclusive med garanteret vejr hele året. Perfekt til vinterferie når resten af Europa er gråt.', "opdagelse": 'Vulkansk månelandskab, kamelridning på lavaleje og grottebesøg — Lanzarote er den mest anderledes af de kanariske øer.'}, 'costa-rica': {"tryghed": 'Costa Rica er det sikreste land i Centralamerika med velfungerende turistinfrastruktur. Selv tryghedsfamilier kan klare det her.', "opdagelse": 'Aber, jaguarer, vulkaner og zip-line — Costa Rica er opdagelsesfamiliens drøm. Børn vokser op på denne tur.'}, 'jordan': {"tryghed": 'Jordan er overraskende trygt og velfungerende. Petra og Det Døde Hav er let tilgængelige med børn — og guider gør det hele nemt.', "opdagelse": 'Petra ved fakkelskær, Wadi Rum under stjernerne, snorkling i Rødehavet — Jordan er tre verdener i ét land.'}, 'montenegro': {"tryghed": 'Montenegro er trygt, europæisk og nemt. Strande, god mad og korte afstande giver en afslappet ferie uden overraskelser.', "opdagelse": 'Kotor Bay er en af Europas mest dramatiske bugter. Kajak, klippesving og bjergvandring for familier der vil mere end strand.'}, 'bulgarien': {"tryghed": 'Bulgarien er Europas bedste tilbud på den klassiske all-inclusive strandferie. Alt er på stedet, og prisen er uset lav.', "opdagelse": 'Sortehavskysten gemmer på mere end resort-hoteller — klippekyst, vinbyer og Nesebar UNESCO-by er lette dagstursture.'},
+  'tyrkiet': {"tryghed": 'Tyrkiet er all-inclusive-paradiset — store resorts med alt inkluderet, varm sø og lange sandstrande. Familien kan slappe helt af.', "opdagelse": 'Historiske ruiner, livlige basarer og autentisk tyrkisk mad venter uden for hotellet — Tyrkiet er mere end pool og strand.'},
+  'cypern': {"tryghed": 'Cypern er trygt, engelsk-venligt og organiseret. Klart vand, gode familiehoteller og næsten garanteret sol fra april til oktober.', "opdagelse": 'Vandring i Troodos-bjergene, antikke ruiner og autentiske cypriotiske landsbyer — Cypern overrasker dem der leder.'},
+  'kreta': {"tryghed": 'Kreta er stor nok til at finde ro — rolige sandstrande, gode familiehoteller og grækernes varmeste gæstfrihed.', "opdagelse": 'Samaria-kløften, Knossos-paladset og det vildeste bjerglandskab i Ægæerhavet — Kreta er Grækenlands mest mangfoldige ø.'},
+  'santorini': {"tryghed": 'Santorini er et trygt og velorganiseret rejsemål — bedst for familier med børn over 5 der kan opleve den unikke natur.', "opdagelse": 'Vulkanø, lavastrande, solnedgange og ø-hop til Paros og Naxos — Kykladerne er eventyret.'},
+  'sydfrankrig': {"tryghed": 'Sydfrankrig byder på tryg europæisk ferie — campingpladser og gîtes med pool, gode veje og lækker mad i roligt tempo.', "opdagelse": "Lavendelmarker, middelalderby, Pont du Gard og Côte d'Azur — kør-selv Frankrig er en opdagelse for hele familien."},
+  'gardasoeen': {"tryghed": 'Gardasøen er perfekt til tryghedsfamilien — campingpladser direkte ved søen, Gardaland for børnene og stabilt vejr.', "opdagelse": 'Windsurfing i Riva del Garda, cykling langs søen, dagsture til Verona — norditalien er eventyrligt.'},
+  'norge-fjorde': {"tryghed": 'Norge er trygt og velorganiseret — gode veje, sikre hytter og naturen er imponerende uden at virke overvældende.', "opdagelse": 'Nærøyfjord fra kajak, Trolltunga og midnatssolen — Norge er den ultimative naturoplevelse tæt på Danmark.'},
+  'sverige-bohuslan': {"tryghed": 'Bohuslän er den nemmeste kør-selv-ferie — trygt, billigt og klipper og hummer venter.', "opdagelse": 'Åbne klippekyster, fiskerlejer og Bohuslän-skovlandskab — Sverige overrasker altid.'},
+  'tyskland-bayern': {"tryghed": 'Bayern er europæisk og organiseret — gode campingpladser, Legoland og velkendt kultur. Børn elsker slottene.', "opdagelse": 'Neuschwanstein, Zugspitze, Salzburg og alpesøer — en roadtrip through Bayern og Østrig er fuld af opdagelser.'},
+  'bornholm-bil': {"tryghed": 'Bornholm er den tryggeste kør-selv-ferie — dansk, nemt og børnene kan cykle frit på øens cykelstier.', "opdagelse": 'Hammershus-ruinen, klippekysten og røgericultur — Bornholm gemmer på mere end sol og strand.'},
 'mallorca': {"tryghed": 'Alt er enkelt og forudsigeligt — store sandstrande, lavvandet hav, og din all-inclusive pakke er klar fra dag 1. I kan slappe af fra første minut.', "opdagelse": 'Mallorca er mere end sol og strand — den nordøstlige kyst, bjergbyerne og sejlture tilbyder rigtige oplevelser.'}, 'kroatien': {"tryghed": 'Krystalklart vand og hyggelige havnebyer giver trygge rammer. Book en ferielejlighed og lad børnene styre tempoet.', "opdagelse": 'Øer at udforske, grotter, sejlture og Dubrovniks middelalderby — Kroatien er eventyr for hele familien.'}, 'thailand': {"tryghed": 'De store resort-hoteller i Khao Lak er skabt til familier — alt er inden for hegnet, maden er god, og stranden er tryg.', "opdagelse": 'Elefant-sanctuaries, tempelbesøg, natmarkeder og snorkling ved Similan Islands. Thailand åbner børnenes øjne.'}, 'gran-canaria': {"tryghed": 'Maspalomas er næsten garanteret sol 300 dage om året. All-inclusive, sandklitter og vandpark — perfekt til vinterferie uden bekymringer.', "opdagelse": 'Kamelridning i klitterne, Palmitos Park og dramatisk vulkansk natur — Gran Canaria er mere end sol og pool.'}, 'portugal': {"tryghed": 'Lagos og Albufeira har alt på plads — trygge strande, god mad og masser af aktiviteter. Rolig og velorganiseret ferie.', "opdagelse": 'Dramatiske klippekusten, surfing, grottebesøg med båd og autentiske fiskerlejer. Algarve overrasker.'}, 'dubai': {"tryghed": 'Alt er kontrolleret, rent og klimatiseret. Verdens bedste forlystelsesparker og luksuriøse familieresorts med eget vandland.', "opdagelse": 'Ørken-safari, souks, arkitektur fra en anden verden og kulturmøder der sætter perspektiv på hverdagen.'}, 'bornholm': {"tryghed": 'Dansk, trygt og nemt. Ingen sprogbarrierer, god mad og børn kan cykle frit i naturen. Den perfekte hjemlig ferie.', "opdagelse": 'Hammershus, middelaldercenteret, røgerier og en ø-natur der føles som et eventyr — Bornholm overrasker.'}, 'italien-toscana': {"tryghed": 'Agriturismo i Toscana er afslappet og børnevenligt — pool, dyr og simpelt liv. Ingen stramme programmer.', "opdagelse": 'Cinque Terre med tog langs klippekysten, Toscanas vinhøst, gelatoworkshops og levende middelalderhistorie.'}, 'japan': {"tryghed": 'Japan er verdens sikreste rejsemål. Alt er organiseret og præcist — perfekt for familier der vil have kontrol uden at gå på kompromis.', "opdagelse": 'Bullet trains, robotrestauranter, templer, animékultur og DisneySea — Japan er den ultimative opdagelsesrejse.'}, 'marokko': {"tryghed": 'Agadir er vestligt og trygt med gode strandhoteller. Tag en dagsudflugt til Marrakech med guide — det bedste af begge verdener.', "opdagelse": 'Sahara-overnatning, medina-labyrinter, kamelridning og arabisk kogeskole — Marokko er barnets første store verdensopdagelse.'}};
 
 // ─── MATCH ENGINE ─────────────────────────────────────────────────────────────
@@ -923,11 +1263,19 @@ function computeVibeScore(vibeAnswers) {
 
 function scoreDestination(dest, profile) {
   let score = dest.familyScore;
-  const { children, budget, airports, period, maxFlightHours, vibeAnswers } = profile;
+  const { children, budget, airports, period, maxFlightHours, vibeAnswers, travelMode } = profile;
 
-  // Hard filters
-  if (dest.flightTime > maxFlightHours) return null;
-  if (airports.length > 0 && !airports.some(a => dest.airports.includes(a))) return null;
+  // Hard filters — travelMode
+  const destMode = dest.travelMode || "fly"; // default to fly for existing destinations
+  if (travelMode && destMode !== travelMode) return null;
+
+  // For bil destinations skip flight/airport filters
+  if (destMode === "bil") {
+    if (budget === 1 && dest.budgetLevel[0] > 2) return null;
+  } else {
+    if (dest.flightTime > maxFlightHours) return null;
+    if (airports.length > 0 && !airports.some(a => dest.airports.includes(a))) return null;
+  }
   if (budget === 1 && dest.budgetLevel[0] > 2) return null;
 
   // Budget match
@@ -970,7 +1318,8 @@ function scoreDestination(dest, profile) {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [step, setStep]   = useState(0); // 0=splash, 1-5=onboarding, 6=results, 7=detail, 8=min-rejse
+  const [step, setStep]   = useState(0); // 0=splash, 1=transport, 2-6=onboarding, 7=results, 8=detail, 9=min-rejse
+  const [travelMode, setTravelMode] = useState(null); // "fly" | "bil"
   const [heroIndex, setHeroIndex] = useState(0);
 
   // ── Min Rejse — gemt i localStorage ──
@@ -1023,7 +1372,7 @@ export default function App() {
   };
   const period = derivePeriod(departDate);
 
-  const profile = { children, budget, airports, period, maxFlightHours: maxFlight, hotelPref, vibeAnswers };
+  const profile = { children, budget, airports, period, maxFlightHours: maxFlight, hotelPref, vibeAnswers, travelMode };
 
   const addChild    = () => setChildren(c => [...c, { id: Date.now(), age: 6 }]);
   const removeChild = (id) => setChildren(c => c.filter(x => x.id !== id));
@@ -1042,7 +1391,7 @@ export default function App() {
       .filter(d => d.matchScore !== null)
       .sort((a, b) => b.matchScore - a.matchScore);
     setResults(scored);
-    setStep(6);
+    setStep(7);
   };
 
   const dest = selected ? DESTINATIONS.find(d => d.id === selected) : null;
@@ -1093,13 +1442,13 @@ export default function App() {
             Familierejser
           </button>
           <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
-            {step >= 6 && step !== 8 && (
+            {step >= 7 && step !== 8 && (
               <button onClick={() => { setStep(1); setSelected(null); }}
                 style={{ background: "none", border: "none", fontFamily: "inherit", fontSize: 12, color: "#8a8078", letterSpacing: "0.04em" }}>
                 Rediger profil
               </button>
             )}
-            <button onClick={() => setStep(8)}
+            <button onClick={() => setStep(9)}
               style={{ background: myTrip ? "#fdf3ec" : "none", border: myTrip ? "1px solid #f0d8c4" : "1px solid #ede8e0", padding: "5px 12px", fontFamily: "inherit", fontSize: 12, color: myTrip ? "#b85c2a" : "#b0a898", letterSpacing: "0.03em", display: "flex", alignItems: "center", gap: 6 }}>
               🗺️ Min Rejse{myTrip ? " ✓" : ""}
             </button>
@@ -1194,8 +1543,32 @@ export default function App() {
       )}
 
       {/* ── ONBOARDING TRIN 1: Børn ── */}
+
+      {/* ── TRIN 1: TRANSPORTVALG ── */}
       {step === 1 && (
-        <OnboardStep step={1} total={4} title="Hvem skal med?" sub="Alder afgør hvad der er de bedste aktiviteter og rejser." onBack={() => setStep(0)}>
+        <OnboardStep step={1} total={5} title="Hvordan rejser I?" sub="Det afgør hvilke destinationer vi finder til jer." onBack={() => setStep(0)}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
+            <button onClick={() => { setTravelMode("fly"); setStep(2); }}
+              style={{ padding: "28px 16px", border: `2px solid ${travelMode === "fly" ? "#b85c2a" : "#ede8e0"}`, background: travelMode === "fly" ? "#fdf3ec" : "#fff", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 40 }}>✈️</span>
+              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontStyle: "italic", color: "#1a1a18" }}>Fly</span>
+              <span style={{ fontSize: 12, color: "#8a8078", lineHeight: 1.5, textAlign: "center" }}>Charter, lavpris eller langdistance — vi finder de bedste flygdestinationer</span>
+            </button>
+            <button onClick={() => { setTravelMode("bil"); setStep(2); }}
+              style={{ padding: "28px 16px", border: `2px solid ${travelMode === "bil" ? "#b85c2a" : "#ede8e0"}`, background: travelMode === "bil" ? "#fdf3ec" : "#fff", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 40 }}>🚗</span>
+              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontStyle: "italic", color: "#1a1a18" }}>Kør selv</span>
+              <span style={{ fontSize: 12, color: "#8a8078", lineHeight: 1.5, textAlign: "center" }}>Bil, autocamper eller campingvogn — vi finder de bedste køreselvdestinationer</span>
+            </button>
+          </div>
+          <div style={{ padding: "12px 16px", background: "#f5f0e8", fontSize: 12, color: "#6a6058", lineHeight: 1.7 }}>
+            💡 Du kan altid skifte transportform og prøve igen bagefter.
+          </div>
+        </OnboardStep>
+      )}
+
+      {step === 2 && (
+        <OnboardStep step={2} total={5} title="Hvem skal med?" sub="Alder afgør hvad der er de bedste aktiviteter og rejser." onBack={() => setStep(1)}>
 
           {/* Voksne */}
           <div style={{ marginBottom: 24 }}>
@@ -1242,13 +1615,13 @@ export default function App() {
             💡 Vi bruger alder til at filtrere rejser med passende aktiviteter, flyvetider og faciliteter.
           </div>
 
-          <StepButton onClick={() => setStep(2)}>Næste →</StepButton>
+          <StepButton onClick={() => setStep(3)}>Næste →</StepButton>
         </OnboardStep>
       )}
 
       {/* ── ONBOARDING TRIN 2: Budget & Lufthavn ── */}
-      {step === 2 && (
-        <OnboardStep step={2} total={4} title="Budget & afrejse" sub="Hvad passer jeres familie?" onBack={() => setStep(1)}>
+      {step === 3 && (
+        <OnboardStep step={3} total={5} title="Budget & afrejse" sub="Hvad passer jeres familie?" onBack={() => setStep(2)}>
 
           <div style={{ marginBottom: 32 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#b0a898", marginBottom: 16, fontWeight: 500 }}>Budgetniveau</div>
@@ -1291,8 +1664,8 @@ export default function App() {
       )}
 
       {/* ── ONBOARDING TRIN 3: Datoer & Flyvetid ── */}
-      {step === 3 && (
-        <OnboardStep step={3} total={5} title="Hvornår skal I afsted?" sub="Vælg datoer — vi finder det bedste interval." onBack={() => setStep(2)}>
+      {step === 4 && (
+        <OnboardStep step={4} total={5} title="Hvornår skal I afsted?" sub="Vælg datoer — vi finder det bedste interval." onBack={() => setStep(3)}>
 
           {/* Dato-range-picker */}
           <div style={{ marginBottom: 28 }}>
@@ -1382,8 +1755,8 @@ export default function App() {
       )}
 
       {/* ── ONBOARDING TRIN 4: Ferievibe ── */}
-      {step === 4 && (
-        <OnboardStep step={4} total={5} title="Hvad handler en god ferie om?" sub="Ingen rigtige svar — vi bruger det til at finde jeres type rejse." onBack={() => setStep(3)}>
+      {step === 6 && (
+        <OnboardStep step={6} total={5} title="Hvad handler en god ferie om?" sub="Ingen rigtige svar — vi bruger det til at finde jeres type rejse." onBack={() => setStep(5)}>
 
           {/* Spørgsmål 1 */}
           <VibeQuestion
@@ -1485,7 +1858,7 @@ export default function App() {
       )}
 
       {/* ── RESULTATER ── */}
-      {step === 6 && (
+      {step === 7 && (
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 20px" }}>
 
           {/* Header */}
@@ -1515,7 +1888,7 @@ export default function App() {
 
           {/* Topreklame: match #1 stor */}
           {results[0] && (
-            <div className="appear stagger-1 dest-card results-hero" onClick={() => { setSelected(results[0].id); setStep(7); }}
+            <div className="appear stagger-1 dest-card results-hero" onClick={() => { setSelected(results[0].id); setStep(8); }}
               style={{ display: "grid", gridTemplateColumns: "1fr 1fr", marginBottom: 24, cursor: "pointer", background: "#fff", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <div style={{ position: "relative", minHeight: 320, maxHeight: 400 }}>
                 <img src={results[0].image} alt={results[0].name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
@@ -1566,7 +1939,7 @@ export default function App() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
             {results.slice(1).map((d, i) => (
               <div key={d.id} className={`appear dest-card stagger-${Math.min(i + 1, 4)}`}
-                onClick={() => { setSelected(d.id); setStep(7); }}
+                onClick={() => { setSelected(d.id); setStep(8); }}
                 style={{ background: "#fff", overflow: "hidden", cursor: "pointer", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
                 <div style={{ position: "relative", height: 200 }}>
                   <img src={d.image} alt={d.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
@@ -1575,7 +1948,7 @@ export default function App() {
                   </div>
                 </div>
                 <div style={{ padding: "20px 22px 24px" }}>
-                  <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#b0a898", marginBottom: 8 }}>{d.flag} {d.country} · {d.flightTime}t fly</div>
+                  <div style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#b0a898", marginBottom: 8 }}>{d.flag} {d.country} · {(d.travelMode||'fly')==='bil' ? `🚗 ${d.driveFromCph}t kørsel` : `${d.flightTime}t fly`}</div>
                   <h3 style={{ fontFamily: "'Fraunces', serif", fontSize: 22, fontWeight: 400, marginBottom: 8, lineHeight: 1.2 }}>{d.name}</h3>
                   <p style={{ fontSize: 13, color: "#8a8078", lineHeight: 1.7, marginBottom: 16, fontWeight: 300 }}>{((SEGMENT_WHY[d.id]?.[vibeLabel === "begge" ? "tryghed" : vibeLabel]) || d.whyFamily).slice(0, 110)}…</p>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #f0ebe0", paddingTop: 14 }}>
@@ -1593,14 +1966,14 @@ export default function App() {
       )}
 
       {/* ── DESTINATION DETAIL ── */}
-      {step === 7 && dest && (
+      {step === 8 && dest && (
         <div>
           {/* Hero */}
           <div className="detail-hero" style={{ position: "relative", height: "60vh", minHeight: 360 }}>
             <img src={dest.image} alt={dest.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,24,0.85) 0%, rgba(26,26,24,0.2) 50%, transparent 100%)" }} />
             <div className="detail-hero-text" style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "40px 56px" }}>
-              <button onClick={() => setStep(6)}
+              <button onClick={() => setStep(7)}
                 style={{ background: "none", border: "none", color: "rgba(255,255,255,0.6)", fontFamily: "inherit", fontSize: 12, marginBottom: 20, display: "flex", alignItems: "center", gap: 6, letterSpacing: "0.05em" }}>
                 ← Alle anbefalinger
               </button>
@@ -1619,53 +1992,82 @@ export default function App() {
           {/* Indhold */}
           <div style={{ maxWidth: 1000, margin: "0 auto", padding: "32px 20px" }}>
 
-            {/* CTA: Book via affiliate */}
-            {/* ── 4 AFFILIATE KNAPPER ── */}
+            {/* ── AFFILIATE KNAPPER ── */}
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 56 }}>
 
-              {/* Fly — Kayak */}
-              <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
-                <a href={momondoLink({ from: airports[0], to: dest.iata, depart: dates.depart, returnDate: dates.ret, adults, children: children.map(c => c.age), flexibility })}
-                  target="_blank" rel="noopener noreferrer"
-                  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#1a1a18", color: "#faf8f4", textDecoration: "none", gap: 3, minHeight: 90 }}>
-                  <div style={{ fontSize: 18 }}>✈</div>
-                  <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>Fly — Kayak</div>
-                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 2 }}>
-                    {airports[0]} → {dest.iata} · {children.length + adults} pers.
+              {/* Fly — Kayak: kun for fly-destinationer */}
+              {(dest.travelMode || "fly") === "fly" && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+                  <a href={momondoLink({ from: airports[0], to: dest.iata, depart: dates.depart, returnDate: dates.ret, adults, children: children.map(c => c.age), flexibility })}
+                    target="_blank" rel="noopener noreferrer"
+                    style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#1a1a18", color: "#faf8f4", textDecoration: "none", gap: 3, minHeight: 90 }}>
+                    <div style={{ fontSize: 18 }}>✈</div>
+                    <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>Fly — Kayak</div>
+                    <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 2 }}>
+                      {airports[0]} → {dest.iata} · {children.length + adults} pers.
+                    </div>
+                  </a>
+                  {(directOnly || departWindow) && (
+                    <div style={{ padding: "7px 10px", background: "#fdf3ec", border: "1px solid #f0d8c4", fontSize: 10, color: "#8a6050", lineHeight: 1.6 }}>
+                      💡 Filtrer på Kayak:{" "}
+                      {directOnly && <span><strong>Direkte fly</strong>{departWindow ? " · " : ""}</span>}
+                      {departWindow === "morning" && <span><strong>06–12</strong></span>}
+                      {departWindow === "midday" && <span><strong>09–15</strong></span>}
+                      {departWindow === "afternoon" && <span><strong>12–18</strong></span>}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Kør-selv info — kun for bil-destinationer */}
+              {(dest.travelMode || "fly") === "bil" && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#f5f0e8", border: "1px solid #ede8e0", gap: 6, minHeight: 90 }}>
+                  <div style={{ fontSize: 18 }}>🚗</div>
+                  <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic", color: "#1a1a18" }}>Kør-selv ferie</div>
+                  <div style={{ fontSize: 11, color: "#8a8078", textAlign: "center" }}>
+                    Ca. {dest.driveFromCph} timers kørsel fra København
                   </div>
-                </a>
-                {(directOnly || departWindow) && (
-                  <div style={{ padding: "7px 10px", background: "#fdf3ec", border: "1px solid #f0d8c4", fontSize: 10, color: "#8a6050", lineHeight: 1.6 }}>
-                    💡 Filtrer på Kayak:{" "}
-                    {directOnly && <span><strong>Direkte fly</strong>{departWindow ? " · " : ""}</span>}
-                    {departWindow === "morning" && <span><strong>06–12</strong></span>}
-                    {departWindow === "midday" && <span><strong>09–15</strong></span>}
-                    {departWindow === "afternoon" && <span><strong>12–18</strong></span>}
-                  </div>
-                )}
-              </div>
+                </div>
+              )}
 
               {/* Hotel — Booking.com */}
               <a href={bookingLink({ destination: dest.name, checkin: dates.depart, checkout: dates.ret, adults, children: children.map(c => c.age), flexibility })}
                 target="_blank" rel="noopener noreferrer"
                 style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#003580", color: "#fff", textDecoration: "none", gap: 3, minHeight: 90 }}>
                 <div style={{ fontSize: 18 }}>🏨</div>
-                <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>Hotel — Booking</div>
+                <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>
+                  {(dest.travelMode || "fly") === "bil" ? "Overnatning — Booking" : "Hotel — Booking"}
+                </div>
                 <div style={{ fontSize: 11, color: "rgba(255,255,255,0.45)", marginTop: 2 }}>
                   {dest.name} · {children.length} børn + {adults} voksne
                 </div>
               </a>
 
-              {/* Billeje — Rentalcars */}
-              <a href={rentalcarsLink({ destination: dest.name, iata: dest.iata, pickup: dates.depart, dropoff: dates.ret, drivers: adults })}
-                target="_blank" rel="noopener noreferrer"
-                style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#2c7a4b", color: "#fff", textDecoration: "none", gap: 3, minHeight: 90 }}>
-                <div style={{ fontSize: 18 }}>🚗</div>
-                <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>Billeje — Rentalcars</div>
-                <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 2 }}>
-                  {dates.depart} – {dates.ret} · {dest.name}
-                </div>
-              </a>
+              {/* Billeje — kun for fly-destinationer */}
+              {(dest.travelMode || "fly") === "fly" && (
+                <a href={rentalcarsLink({ destination: dest.name, iata: dest.iata, pickup: dates.depart, dropoff: dates.ret, drivers: adults })}
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#2c7a4b", color: "#fff", textDecoration: "none", gap: 3, minHeight: 90 }}>
+                  <div style={{ fontSize: 18 }}>🚗</div>
+                  <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>Billeje — Rentalcars</div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 2 }}>
+                    {dates.depart} – {dates.ret} · {dest.name}
+                  </div>
+                </a>
+              )}
+
+              {/* Transfer — kun for bil-destinationer */}
+              {(dest.travelMode || "fly") === "bil" && (
+                <a href={`https://www.booking.com/searchresults.da.html?ss=${encodeURIComponent(dest.name + " camping")}&checkin=${dates.depart}&checkout=${dates.ret}&group_adults=${adults}&group_children=${children.length}`}
+                  target="_blank" rel="noopener noreferrer"
+                  style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "20px 12px", background: "#2c7a4b", color: "#fff", textDecoration: "none", gap: 3, minHeight: 90 }}>
+                  <div style={{ fontSize: 18 }}>⛺</div>
+                  <div style={{ fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>Camping — Booking</div>
+                  <div style={{ fontSize: 11, color: "rgba(255,255,255,0.5)", marginTop: 2 }}>
+                    Campingpladser i {dest.name}
+                  </div>
+                </a>
+              )}
 
               {/* Forsikring — ERV */}
               <a href={ervLink({ depart: dates.depart, returnDate: dates.ret, adults, children: children.map(c => c.age) })}
@@ -1694,7 +2096,7 @@ export default function App() {
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: 1 }}>
                 {[
-                  { label: "Flyvetid", value: `${dest.flightTime} timer` },
+                  { label: (dest.travelMode||"fly")==="bil" ? "Kørsel fra KBH" : "Flyvetid", value: (dest.travelMode||"fly")==="bil" ? `${dest.driveFromCph} timer` : `${dest.flightTime} timer` },
                   { label: "Valuta", value: dest.currency },
                   { label: "Vejr", value: dest.weatherJuly || dest.weatherDec || dest.weatherJan || dest.weatherOct || dest.weatherMay || dest.weatherApr || "–" },
                   { label: "Visum", value: dest.visa ? "Kræves" : "Ikke nødvendigt" },
@@ -1804,7 +2206,7 @@ export default function App() {
       )}
 
       {/* ── MIN REJSE ── */}
-      {step === 8 && (() => {
+      {step === 9 && (() => {
         const costs = myTrip?.costs || {};
         const costItems = [
           { key: "costFlight",     label: "Fly",         icon: "✈️" },
@@ -2128,7 +2530,7 @@ export default function App() {
 
                 {/* ── Handlinger ── */}
                 <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
-                  <button onClick={() => { const d = DESTINATIONS.find(d => d.iata === myTrip.iata); if (d) { setSelected(d.id); setStep(7); } else setStep(6); }}
+                  <button onClick={() => { const d = DESTINATIONS.find(d => d.iata === myTrip.iata); if (d) { setSelected(d.id); setStep(8); } else setStep(7); }}
                     style={{ flex: 1, padding: "14px", background: "#b85c2a", border: "none", color: "#fff", fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>
                     ← Tilbage til {myTrip.destination}
                   </button>
