@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 // ─── AFFILIATE CONFIG ──────────────────────────────────────────────────────────
 // Affiliate IDs — tilføj dine egne når du er godkendt
@@ -46,10 +46,138 @@ function bookingLink({ destination, checkin, checkout, adults, children, flexibi
   return `https://www.booking.com/searchresults.da.html?ss=${encodeURIComponent(destination)}&checkin=${checkin}&checkout=${checkout}&group_adults=${adults}&group_children=${children.length}&${ages}${flex}${aff}&lang=da`;
 }
 
+
+// ─── HISTORISK VEJRDATA (gennemsnit per måned) ────────────────────────────────
+// [jan,feb,mar,apr,maj,jun,jul,aug,sep,okt,nov,dec] — °C dagstemp + beskrivelse
+const HIST_WEATHER = {
+  'mallorca':        { temp: [14,14,16,18,22,26,29,30,27,22,17,14], desc: ['Kølig','Kølig','Mild','Mild','Varm','Varm','Varm sol','Varm sol','Varm','Mild','Kølig','Kølig'] },
+  'kroatien':        { temp: [8,9,12,16,21,25,28,28,24,18,13,9],   desc: ['Kølig','Kølig','Mild','Mild','Varm','Varm','Varm sol','Varm sol','Varm','Mild','Kølig','Kølig'] },
+  'thailand':        { temp: [31,33,34,34,33,32,31,31,31,31,30,30], desc: ['Sol','Sol','Sol','Varmt','Regn','Regn','Regn','Regn','Regn','Regn','Sol','Sol'] },
+  'gran-canaria':    { temp: [19,19,20,21,23,25,26,27,26,24,22,20], desc: ['Mild','Mild','Mild','Mild','Varm','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Mild'] },
+  'portugal':        { temp: [15,16,18,20,23,27,29,29,27,22,17,15], desc: ['Mild','Mild','Mild','Varm','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Mild','Mild'] },
+  'dubai':           { temp: [20,21,24,28,33,35,37,38,35,31,26,21], desc: ['Mild','Mild','Varmt','Varmt','Meget varmt','Meget varmt','Meget varmt','Meget varmt','Varmt','Varmt','Varm','Mild'] },
+  'bornholm':        { temp: [1,1,4,8,14,17,20,20,16,11,6,3],      desc: ['Koldt','Koldt','Kølig','Mild','Mild','Varm','Sol','Sol','Mild','Kølig','Kølig','Koldt'] },
+  'italien-toscana': { temp: [7,8,11,15,19,23,27,27,23,17,11,7],   desc: ['Kølig','Kølig','Mild','Mild','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Kølig','Kølig'] },
+  'japan':           { temp: [6,7,10,15,20,23,27,28,24,18,13,8],   desc: ['Kølig','Kølig','Mild','Mild','Varm','Regn','Varm sol','Varm sol','Varm','Mild','Kølig','Kølig'] },
+  'marokko':         { temp: [13,15,18,21,25,29,32,33,29,23,17,13], desc: ['Mild','Mild','Varm','Varm','Varm','Varm sol','Varmt','Varmt','Varm','Varm','Mild','Mild'] },
+  'rhodos':          { temp: [13,14,16,19,23,28,30,30,27,22,18,14], desc: ['Kølig','Kølig','Mild','Mild','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Mild','Kølig'] },
+  'kos':             { temp: [13,14,16,19,23,28,30,30,27,22,17,14], desc: ['Kølig','Kølig','Mild','Mild','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Mild','Kølig'] },
+  'lanzarote':       { temp: [18,18,19,20,22,24,25,26,25,23,21,18], desc: ['Mild','Mild','Mild','Mild','Varm','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Mild'] },
+  'costa-rica':      { temp: [27,28,29,29,28,27,27,27,27,26,26,26], desc: ['Sol','Sol','Sol','Sol','Regn','Regn','Regn','Regn','Regn','Regn','Regn','Sol'] },
+  'jordan':          { temp: [12,14,17,23,28,32,34,34,31,26,19,13], desc: ['Kølig','Mild','Mild','Varm','Varm','Varm sol','Varmt','Varmt','Varm','Varm','Mild','Kølig'] },
+  'montenegro':      { temp: [7,8,11,15,20,24,28,28,23,17,12,8],   desc: ['Kølig','Kølig','Mild','Mild','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Kølig','Kølig'] },
+  'bulgarien':       { temp: [2,4,9,15,20,24,27,27,22,15,8,4],     desc: ['Koldt','Kølig','Mild','Mild','Varm','Varm sol','Varm sol','Varm sol','Varm','Mild','Kølig','Koldt'] },
+};
+
+const WMO_ICONS = {
+  0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',
+  51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',
+  71:'❄️',73:'❄️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',
+  95:'⛈️',96:'⛈️',99:'⛈️',
+};
+const WMO_DA = {
+  0:'Klar',1:'Næsten klar',2:'Delvis skyet',3:'Overskyet',45:'Tåge',
+  51:'Let dryssel',53:'Dryssel',55:'Kraftig dryssel',61:'Let regn',63:'Regn',65:'Kraftig regn',
+  71:'Let sne',73:'Sne',75:'Kraftig sne',80:'Let byger',81:'Byger',82:'Kraftige byger',
+  95:'Tordenvejr',96:'Tordenvejr med hagl',99:'Kraftigt tordenvejr',
+};
+const MONTH_DA = ['januar','februar','marts','april','maj','juni','juli','august','september','oktober','november','december'];
+
+function WeatherWidget({ dest, departDate }) {
+  const [weather, setWeather] = React.useState(null);
+  const [loading, setLoading] = React.useState(false);
+
+  const isWithin14Days = React.useMemo(() => {
+    if (!departDate) return false;
+    const diff = (new Date(departDate) - new Date()) / 86400000;
+    return diff >= 0 && diff <= 14;
+  }, [departDate]);
+
+  React.useEffect(() => {
+    if (!isWithin14Days || !dest.lat) return;
+    setLoading(true);
+    const end = departDate ? (() => { const d = new Date(departDate); d.setDate(d.getDate() + 5); return d.toISOString().split('T')[0]; })() : '';
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${dest.lat}&longitude=${dest.lon}&daily=temperature_2m_max,temperature_2m_min,weathercode,precipitation_sum&timezone=auto&start_date=${departDate}&end_date=${end}`)
+      .then(r => r.json())
+      .then(data => { setWeather(data.daily); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, [dest.id, departDate, isWithin14Days]);
+
+  if (!departDate) return null;
+
+  const month = new Date(departDate).getMonth();
+  const hist = HIST_WEATHER[dest.id];
+
+  return (
+    <div style={{ border: "1px solid #ede8e0", padding: "24px", marginBottom: 2, background: "#fff" }}>
+      <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#b0a898", marginBottom: 16, fontWeight: 500 }}>
+        🌤️ Vejr ved ankomst
+      </div>
+
+      {isWithin14Days ? (
+        loading ? (
+          <div style={{ fontSize: 13, color: "#b0a898" }}>Henter vejrudsigt...</div>
+        ) : weather ? (
+          <div>
+            <div style={{ fontSize: 11, color: "#b85c2a", marginBottom: 12 }}>Aktuel vejrudsigt for {dest.name}</div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 6 }}>
+              {weather.time.map((date, i) => (
+                <div key={i} style={{ textAlign: "center", padding: "10px 4px", background: i === 0 ? "#fdf3ec" : "#faf8f4", border: `1px solid ${i === 0 ? "#f0d8c4" : "#ede8e0"}` }}>
+                  <div style={{ fontSize: 10, color: "#b0a898", marginBottom: 4 }}>
+                    {i === 0 ? "Ankomst" : new Date(date).toLocaleDateString("da-DK", { weekday: "short" })}
+                  </div>
+                  <div style={{ fontSize: 22 }}>{WMO_ICONS[weather.weathercode[i]] || '🌡️'}</div>
+                  <div style={{ fontSize: 12, fontWeight: 500, color: "#1a1a18", marginTop: 4 }}>
+                    {Math.round(weather.temperature_2m_max[i])}°
+                  </div>
+                  <div style={{ fontSize: 10, color: "#b0a898" }}>
+                    {Math.round(weather.temperature_2m_min[i])}°
+                  </div>
+                  {weather.precipitation_sum[i] > 0 && (
+                    <div style={{ fontSize: 10, color: "#2471a3", marginTop: 2 }}>{weather.precipitation_sum[i]}mm</div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div style={{ fontSize: 11, color: "#b0a898", marginTop: 10 }}>Kilde: Open-Meteo · Opdateres dagligt</div>
+          </div>
+        ) : null
+      ) : hist ? (
+        <div>
+          <div style={{ fontSize: 11, color: "#8a8078", marginBottom: 12 }}>
+            Historisk gennemsnit for <strong>{MONTH_DA[month]}</strong> i {dest.name}
+          </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 20, padding: "16px 20px", background: "#fdf3ec", border: "1px solid #f0d8c4" }}>
+            <div style={{ fontSize: 48, lineHeight: 1 }}>
+              {hist.temp[month] >= 28 ? '☀️' : hist.temp[month] >= 22 ? '🌤️' : hist.temp[month] >= 15 ? '⛅' : '🌥️'}
+            </div>
+            <div>
+              <div style={{ fontFamily: "'Fraunces', serif", fontSize: 32, fontStyle: "italic", color: "#b85c2a", lineHeight: 1 }}>
+                {hist.temp[month]}°C
+              </div>
+              <div style={{ fontSize: 13, color: "#6a6058", marginTop: 4 }}>{hist.desc[month]}</div>
+              <div style={{ fontSize: 11, color: "#b0a898", marginTop: 2 }}>Typisk dagstemp · historisk gennemsnit</div>
+            </div>
+          </div>
+          <div style={{ marginTop: 10, display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: 4 }}>
+            {MONTH_DA.map((m, i) => (
+              <div key={i} style={{ textAlign: "center", padding: "6px 2px", background: i === month ? "#fdf3ec" : "transparent", border: i === month ? "1px solid #f0d8c4" : "1px solid transparent" }}>
+                <div style={{ fontSize: 9, color: i === month ? "#b85c2a" : "#b0a898", textTransform: "uppercase" }}>{m.slice(0,3)}</div>
+                <div style={{ fontSize: 12, fontWeight: i === month ? 600 : 400, color: i === month ? "#b85c2a" : "#6a6058" }}>{hist.temp[i]}°</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
 // ─── DESTINATION DATABASE ─────────────────────────────────────────────────────
 const DESTINATIONS = [
   {
     id: "mallorca",
+    lat: 39.5696, lon: 2.6502,
     image: "/images/mallorca.jpg",
     visual: { sky: "#4a9eda", sea: "#2980b9", sand: "#f4d03f", accent: "#e67e22", emoji: "🏖️", label: "Blå laguner" },
     segment: 'tryghed', allInclusive: true,  vibeScore: { tryghed: 95, opdagelse: 40 },
@@ -80,6 +208,7 @@ const DESTINATIONS = [
   },
   {
     id: "kroatien",
+    lat: 42.6507, lon: 18.0944,
     image: "/images/kroatien.jpg",
     visual: { sky: "#2471a3", sea: "#1a5276", sand: "#d5e8d4", accent: "#c0392b", emoji: "🏰", label: "Adriaterhav" },
     segment: 'begge',   allInclusive: false, vibeScore: { tryghed: 65, opdagelse: 88 },
@@ -110,6 +239,7 @@ const DESTINATIONS = [
   },
   {
     id: "thailand",
+    lat: 8.0863, lon: 98.3381,
     image: "/images/thailand.jpg",
     visual: { sky: "#f39c12", sea: "#16a085", sand: "#f9e79f", accent: "#27ae60", emoji: "🌴", label: "Tropisk paradis" },
     segment: 'begge',   allInclusive: false, vibeScore: { tryghed: 60, opdagelse: 90 },
@@ -140,6 +270,7 @@ const DESTINATIONS = [
   },
   {
     id: "gran-canaria",
+    lat: 27.9202, lon: -15.5474,
     image: "/images/gran-canaria.jpg",
     visual: { sky: "#f1c40f", sea: "#2e86c1", sand: "#e59866", accent: "#d35400", emoji: "🏜️", label: "Sandklitter" },
     segment: 'tryghed', allInclusive: true,  vibeScore: { tryghed: 92, opdagelse: 35 },
@@ -170,6 +301,7 @@ const DESTINATIONS = [
   },
   {
     id: "portugal",
+    lat: 37.1021, lon: -8.6754,
     image: "/images/portugal.jpg",
     visual: { sky: "#3498db", sea: "#1f618d", sand: "#f0e68c", accent: "#e74c3c", emoji: "🪨", label: "Atlanterhavet" },
     segment: 'begge',   allInclusive: false, vibeScore: { tryghed: 72, opdagelse: 82 },
@@ -200,6 +332,7 @@ const DESTINATIONS = [
   },
   {
     id: "dubai",
+    lat: 25.2048, lon: 55.2708,
     image: "/images/dubai.jpg",
     visual: { sky: "#e67e22", sea: "#2471a3", sand: "#f8c471", accent: "#8e44ad", emoji: "🌆", label: "Skyline" },
     segment: 'tryghed', allInclusive: true,  vibeScore: { tryghed: 85, opdagelse: 70 },
@@ -230,6 +363,7 @@ const DESTINATIONS = [
   },
   {
     id: "bornholm",
+    lat: 55.1007, lon: 14.9046,
     image: "/images/bornholm.jpg",
     visual: { sky: "#85c1e9", sea: "#2e86c1", sand: "#aed6f1", accent: "#1e8449", emoji: "🌿", label: "Solskinsøen" },
     segment: 'begge',   allInclusive: false, vibeScore: { tryghed: 78, opdagelse: 75 },
@@ -260,6 +394,7 @@ const DESTINATIONS = [
   },
   {
     id: "italien-toscana",
+    lat: 43.7711, lon: 11.2486,
     image: "/images/italien.jpg",
     visual: { sky: "#5dade2", sea: "#1a5276", sand: "#f9e79f", accent: "#c0392b", emoji: "🎨", label: "Cinque Terre" },
     segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 50, opdagelse: 90 },
@@ -290,6 +425,7 @@ const DESTINATIONS = [
   },
   {
     id: "japan",
+    lat: 35.6762, lon: 139.6503,
     image: "/images/japan.jpg",
     visual: { sky: "#f1948a", sea: "#6c3483", sand: "#fdfefe", accent: "#e74c3c", emoji: "⛩️", label: "Tokyo" },
     segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 45, opdagelse: 98 },
@@ -320,6 +456,7 @@ const DESTINATIONS = [
   },
   {
     id: "marokko",
+    lat: 31.6295, lon: -7.9811,
     image: "/images/marokko.jpg",
     visual: { sky: "#e59866", sea: "#2471a3", sand: "#f0b27a", accent: "#c0392b", emoji: "🐪", label: "Nordafrika" },
     segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 40, opdagelse: 85 },
@@ -350,6 +487,7 @@ const DESTINATIONS = [
   },
   {
     id: "rhodos",
+    lat: 36.4341, lon: 28.2176,
     image: "/images/rhodos.jpg",
     visual: { sky: "#5dade2", sea: "#1f618d", sand: "#f9e79f", accent: "#e74c3c", emoji: "🏛️", label: "Grækenland" },
     segment: 'tryghed', allInclusive: true, vibeScore: { tryghed: 90, opdagelse: 45 },
@@ -380,6 +518,7 @@ const DESTINATIONS = [
   },
   {
     id: "kos",
+    lat: 36.8938, lon: 27.2877,
     image: "/images/kos.jpg",
     visual: { sky: "#85c1e9", sea: "#2471a3", sand: "#fdebd0", accent: "#27ae60", emoji: "🌿", label: "Grækenland" },
     segment: 'tryghed', allInclusive: false, vibeScore: { tryghed: 85, opdagelse: 55 },
@@ -410,6 +549,7 @@ const DESTINATIONS = [
   },
   {
     id: "lanzarote",
+    lat: 28.9635, lon: -13.5477,
     image: "/images/lanzarote.jpg",
     visual: { sky: "#e67e22", sea: "#2980b9", sand: "#c0392b", accent: "#f39c12", emoji: "🌋", label: "Vulkansk ø" },
     segment: 'begge', allInclusive: true, vibeScore: { tryghed: 80, opdagelse: 70 },
@@ -440,6 +580,7 @@ const DESTINATIONS = [
   },
   {
     id: "costa-rica",
+    lat: 9.7489, lon: -83.7534,
     image: "/images/costa-rica.jpg",
     visual: { sky: "#27ae60", sea: "#1a5276", sand: "#f9e79f", accent: "#e74c3c", emoji: "🦋", label: "Jungel & strand" },
     segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 50, opdagelse: 95 },
@@ -470,6 +611,7 @@ const DESTINATIONS = [
   },
   {
     id: "jordan",
+    lat: 30.3285, lon: 35.4444,
     image: "/images/jordan.jpg",
     visual: { sky: "#e59866", sea: "#2471a3", sand: "#f0b27a", accent: "#8e44ad", emoji: "🏺", label: "Petra & ørken" },
     segment: 'opdagelse', allInclusive: false, vibeScore: { tryghed: 55, opdagelse: 92 },
@@ -500,6 +642,7 @@ const DESTINATIONS = [
   },
   {
     id: "montenegro",
+    lat: 42.4304, lon: 18.694,
     image: "/images/montenegro.jpg",
     visual: { sky: "#2980b9", sea: "#1a5276", sand: "#abebc6", accent: "#c0392b", emoji: "🏔️", label: "Adriaterhavet" },
     segment: 'begge', allInclusive: false, vibeScore: { tryghed: 70, opdagelse: 78 },
@@ -530,6 +673,7 @@ const DESTINATIONS = [
   },
   {
     id: "bulgarien",
+    lat: 43.2784, lon: 28.0486,
     image: "/images/bulgarien.jpg",
     visual: { sky: "#5dade2", sea: "#1f618d", sand: "#f9e79f", accent: "#e67e22", emoji: "🌻", label: "Sortehavet" },
     segment: 'tryghed', allInclusive: true, vibeScore: { tryghed: 88, opdagelse: 40 },
@@ -1398,6 +1542,9 @@ export default function App() {
                 ))}
               </div>
             </div>
+
+            {/* Vejrudsigt */}
+            <WeatherWidget dest={dest} departDate={departDate} />
 
             {/* Aktiviteter for børnene */}
             <div className="appear stagger-2" style={{ marginBottom: 56 }}>
