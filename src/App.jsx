@@ -1629,6 +1629,10 @@ export default function App() {
           </div>
 
           <StepButton onClick={() => setStep(3)}>Næste →</StepButton>
+        </OnboardStep>
+      )}
+
+      {/* ── ONBOARDING TRIN 3: Datoer & Flyvetid ── */}
       {step === 3 && (
         <OnboardStep step={3} total={5} title="Hvornår skal I afsted?" sub="Vælg datoer — vi finder det bedste interval." onBack={() => setStep(2)}>
 
