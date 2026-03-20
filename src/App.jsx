@@ -1265,17 +1265,10 @@ function scoreDestination(dest, profile) {
   let score = dest.familyScore;
   const { children, budget, airports, period, maxFlightHours, vibeAnswers, travelMode } = profile;
 
-  // Hard filters — travelMode
-  const destMode = dest.travelMode || "fly"; // default to fly for existing destinations
-  if (travelMode && destMode !== travelMode) return null;
-
-  // For bil destinations skip flight/airport filters
-  if (destMode === "bil") {
-    if (budget === 1 && dest.budgetLevel[0] > 2) return null;
-  } else {
-    if (dest.flightTime > maxFlightHours) return null;
-    if (airports.length > 0 && !airports.some(a => dest.airports.includes(a))) return null;
-  }
+  // Hard filters
+  if (dest.travelMode === "bil") return null; // Kør-selv destinationer skjules
+  if (dest.flightTime > maxFlightHours) return null;
+  if (airports.length > 0 && !airports.some(a => dest.airports.includes(a))) return null;
   if (budget === 1 && dest.budgetLevel[0] > 2) return null;
 
   // Budget match
@@ -1318,8 +1311,7 @@ function scoreDestination(dest, profile) {
 
 // ─── MAIN APP ─────────────────────────────────────────────────────────────────
 export default function App() {
-  const [step, setStep]   = useState(0); // 0=splash, 1=transport, 2-6=onboarding, 7=results, 8=detail, 9=min-rejse
-  const [travelMode, setTravelMode] = useState(null); // "fly" | "bil"
+  const [step, setStep]   = useState(0); // 0=splash, 1-5=onboarding, 6=results, 7=detail, 8=min-rejse
   const [heroIndex, setHeroIndex] = useState(0);
 
   // ── Min Rejse — gemt i localStorage ──
@@ -1372,7 +1364,7 @@ export default function App() {
   };
   const period = derivePeriod(departDate);
 
-  const profile = { children, budget, airports, period, maxFlightHours: maxFlight, hotelPref, vibeAnswers, travelMode };
+  const profile = { children, budget, airports, period, maxFlightHours: maxFlight, hotelPref, vibeAnswers };
 
   const addChild    = () => setChildren(c => [...c, { id: Date.now(), age: 6 }]);
   const removeChild = (id) => setChildren(c => c.filter(x => x.id !== id));
@@ -1391,7 +1383,7 @@ export default function App() {
       .filter(d => d.matchScore !== null)
       .sort((a, b) => b.matchScore - a.matchScore);
     setResults(scored);
-    setStep(7);
+    setStep(6);
   };
 
   const dest = selected ? DESTINATIONS.find(d => d.id === selected) : null;
@@ -1448,7 +1440,7 @@ export default function App() {
                 Rediger profil
               </button>
             )}
-            <button onClick={() => setStep(9)}
+            <button onClick={() => setStep(7)}
               style={{ background: myTrip ? "#fdf3ec" : "none", border: myTrip ? "1px solid #f0d8c4" : "1px solid #ede8e0", padding: "5px 12px", fontFamily: "inherit", fontSize: 12, color: myTrip ? "#b85c2a" : "#b0a898", letterSpacing: "0.03em", display: "flex", alignItems: "center", gap: 6 }}>
               🗺️ Min Rejse{myTrip ? " ✓" : ""}
             </button>
@@ -1544,31 +1536,8 @@ export default function App() {
 
       {/* ── ONBOARDING TRIN 1: Børn ── */}
 
-      {/* ── TRIN 1: TRANSPORTVALG ── */}
       {step === 1 && (
-        <OnboardStep step={1} total={5} title="Hvordan rejser I?" sub="Det afgør hvilke destinationer vi finder til jer." onBack={() => setStep(0)}>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 24 }}>
-            <button onClick={() => { setTravelMode("fly"); setStep(2); }}
-              style={{ padding: "28px 16px", border: `2px solid ${travelMode === "fly" ? "#b85c2a" : "#ede8e0"}`, background: travelMode === "fly" ? "#fdf3ec" : "#fff", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 40 }}>✈️</span>
-              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontStyle: "italic", color: "#1a1a18" }}>Fly</span>
-              <span style={{ fontSize: 12, color: "#8a8078", lineHeight: 1.5, textAlign: "center" }}>Charter, lavpris eller langdistance — vi finder de bedste flygdestinationer</span>
-            </button>
-            <button onClick={() => { setTravelMode("bil"); setStep(2); }}
-              style={{ padding: "28px 16px", border: `2px solid ${travelMode === "bil" ? "#b85c2a" : "#ede8e0"}`, background: travelMode === "bil" ? "#fdf3ec" : "#fff", fontFamily: "inherit", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-              <span style={{ fontSize: 40 }}>🚗</span>
-              <span style={{ fontFamily: "'Fraunces', serif", fontSize: 18, fontStyle: "italic", color: "#1a1a18" }}>Kør selv</span>
-              <span style={{ fontSize: 12, color: "#8a8078", lineHeight: 1.5, textAlign: "center" }}>Bil, autocamper eller campingvogn — vi finder de bedste køreselvdestinationer</span>
-            </button>
-          </div>
-          <div style={{ padding: "12px 16px", background: "#f5f0e8", fontSize: 12, color: "#6a6058", lineHeight: 1.7 }}>
-            💡 Du kan altid skifte transportform og prøve igen bagefter.
-          </div>
-        </OnboardStep>
-      )}
-
-      {step === 2 && (
-        <OnboardStep step={2} total={5} title="Hvem skal med?" sub="Alder afgør hvad der er de bedste aktiviteter og rejser." onBack={() => setStep(1)}>
+        <OnboardStep step={1} total={4} title="Hvem skal med?" sub="Alder afgør hvad der er de bedste aktiviteter og rejser." onBack={() => setStep(0)}>
 
           {/* Voksne */}
           <div style={{ marginBottom: 24 }}>
@@ -1615,13 +1584,13 @@ export default function App() {
             💡 Vi bruger alder til at filtrere rejser med passende aktiviteter, flyvetider og faciliteter.
           </div>
 
-          <StepButton onClick={() => setStep(3)}>Næste →</StepButton>
+          <StepButton onClick={() => setStep(2)}>Næste →</StepButton>
         </OnboardStep>
       )}
 
       {/* ── ONBOARDING TRIN 2: Budget & Lufthavn ── */}
-      {step === 3 && (
-        <OnboardStep step={3} total={5} title="Budget & afrejse" sub="Hvad passer jeres familie?" onBack={() => setStep(2)}>
+      {step === 2 && (
+        <OnboardStep step={2} total={4} title="Budget & afrejse" sub="Hvad passer jeres familie?" onBack={() => setStep(1)}>
 
           <div style={{ marginBottom: 32 }}>
             <div style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#b0a898", marginBottom: 16, fontWeight: 500 }}>Budgetniveau</div>
@@ -1659,13 +1628,13 @@ export default function App() {
             </div>
           </div>
 
-          <StepButton onClick={() => setStep(3)}>Næste →</StepButton>
+          <StepButton onClick={() => setStep(2)}>Næste →</StepButton>
         </OnboardStep>
       )}
 
       {/* ── ONBOARDING TRIN 3: Datoer & Flyvetid ── */}
-      {step === 4 && (
-        <OnboardStep step={4} total={5} title="Hvornår skal I afsted?" sub="Vælg datoer — vi finder det bedste interval." onBack={() => setStep(3)}>
+      {step === 3 && (
+        <OnboardStep step={3} total={5} title="Hvornår skal I afsted?" sub="Vælg datoer — vi finder det bedste interval." onBack={() => setStep(2)}>
 
           {/* Dato-range-picker */}
           <div style={{ marginBottom: 28 }}>
@@ -1755,8 +1724,8 @@ export default function App() {
       )}
 
       {/* ── ONBOARDING TRIN 4: Ferievibe ── */}
-      {step === 6 && (
-        <OnboardStep step={6} total={5} title="Hvad handler en god ferie om?" sub="Ingen rigtige svar — vi bruger det til at finde jeres type rejse." onBack={() => setStep(5)}>
+      {step === 5 && (
+        <OnboardStep step={5} total={5} title="Hvad handler en god ferie om?" sub="Ingen rigtige svar — vi bruger det til at finde jeres type rejse." onBack={() => setStep(4)}>
 
           {/* Spørgsmål 1 */}
           <VibeQuestion
@@ -1824,8 +1793,8 @@ export default function App() {
       )}
 
       {/* ── ONBOARDING TRIN 5: Hotelpræferencer ── */}
-      {step === 5 && (
-        <OnboardStep step={5} total={5} title="Hvad lægger I vægt på?" sub="Vi bruger det til at fremhæve de rigtige ting." onBack={() => setStep(4)}>
+      {step === 4 && (
+        <OnboardStep step={4} total={5} title="Hvad lægger I vægt på?" sub="Vi bruger det til at fremhæve de rigtige ting." onBack={() => setStep(3)}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 24 }}>
             {[
               { v: "all-inclusive", label: "All-inclusive", icon: "🍽️", sub: "Alt betalt på forhånd" },
@@ -1858,7 +1827,7 @@ export default function App() {
       )}
 
       {/* ── RESULTATER ── */}
-      {step === 7 && (
+      {step === 6 && (
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "32px 20px" }}>
 
           {/* Header */}
@@ -1888,7 +1857,7 @@ export default function App() {
 
           {/* Topreklame: match #1 stor */}
           {results[0] && (
-            <div className="appear stagger-1 dest-card results-hero" onClick={() => { setSelected(results[0].id); setStep(8); }}
+            <div className="appear stagger-1 dest-card results-hero" onClick={() => { setSelected(results[0].id); setStep(7); }}
               style={{ display: "grid", gridTemplateColumns: "1fr 1fr", marginBottom: 24, cursor: "pointer", background: "#fff", overflow: "hidden", boxShadow: "0 4px 24px rgba(0,0,0,0.07)" }}>
               <div style={{ position: "relative", minHeight: 320, maxHeight: 400 }}>
                 <img src={results[0].image} alt={results[0].name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
@@ -1939,7 +1908,7 @@ export default function App() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
             {results.slice(1).map((d, i) => (
               <div key={d.id} className={`appear dest-card stagger-${Math.min(i + 1, 4)}`}
-                onClick={() => { setSelected(d.id); setStep(8); }}
+                onClick={() => { setSelected(d.id); setStep(7); }}
                 style={{ background: "#fff", overflow: "hidden", cursor: "pointer", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
                 <div style={{ position: "relative", height: 200 }}>
                   <img src={d.image} alt={d.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
@@ -1966,14 +1935,14 @@ export default function App() {
       )}
 
       {/* ── DESTINATION DETAIL ── */}
-      {step === 8 && dest && (
+      {step === 7 && dest && (
         <div>
           {/* Hero */}
           <div className="detail-hero" style={{ position: "relative", height: "60vh", minHeight: 360 }}>
             <img src={dest.image} alt={dest.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(26,26,24,0.85) 0%, rgba(26,26,24,0.2) 50%, transparent 100%)" }} />
             <div className="detail-hero-text" style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "40px 56px" }}>
-              <button onClick={() => setStep(7)}
+              <button onClick={() => setStep(6)}
                 style={{ background: "none", border: "none", color: "rgba(255,255,255,0.6)", fontFamily: "inherit", fontSize: 12, marginBottom: 20, display: "flex", alignItems: "center", gap: 6, letterSpacing: "0.05em" }}>
                 ← Alle anbefalinger
               </button>
@@ -2206,7 +2175,7 @@ export default function App() {
       )}
 
       {/* ── MIN REJSE ── */}
-      {step === 9 && (() => {
+      {step === 8 && (() => {
         const costs = myTrip?.costs || {};
         const costItems = [
           { key: "costFlight",     label: "Fly",         icon: "✈️" },
@@ -2530,7 +2499,7 @@ export default function App() {
 
                 {/* ── Handlinger ── */}
                 <div style={{ display: "flex", gap: 10, marginBottom: 12 }}>
-                  <button onClick={() => { const d = DESTINATIONS.find(d => d.iata === myTrip.iata); if (d) { setSelected(d.id); setStep(8); } else setStep(7); }}
+                  <button onClick={() => { const d = DESTINATIONS.find(d => d.iata === myTrip.iata); if (d) { setSelected(d.id); setStep(7); } else setStep(6); }}
                     style={{ flex: 1, padding: "14px", background: "#b85c2a", border: "none", color: "#fff", fontFamily: "'Fraunces', serif", fontSize: 16, fontStyle: "italic" }}>
                     ← Tilbage til {myTrip.destination}
                   </button>
