@@ -371,6 +371,8 @@ function RangePicker({ departDate, returnDate, onSelect }) {
 const DESTINATIONS = [
   {
     id: "mallorca",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [14, 14, 16, 18, 22, 26, 29, 30, 27, 22, 17, 14],
     lat: 39.5696, lon: 2.6502,
     image: "/images/mallorca.jpg",
     visual: { sky: "#4a9eda", sea: "#2980b9", sand: "#f4d03f", accent: "#e67e22", emoji: "🏖️", label: "Blå laguner" },
@@ -402,6 +404,8 @@ const DESTINATIONS = [
   },
   {
     id: "kroatien",
+    sunGuarantee: [6, 7, 8, 9],
+    sunTemp: [8, 9, 12, 16, 21, 25, 28, 28, 24, 18, 13, 9],
     lat: 42.6507, lon: 18.0944,
     image: "/images/kroatien.jpg",
     visual: { sky: "#2471a3", sea: "#1a5276", sand: "#d5e8d4", accent: "#c0392b", emoji: "🏰", label: "Adriaterhav" },
@@ -433,6 +437,8 @@ const DESTINATIONS = [
   },
   {
     id: "thailand",
+    sunGuarantee: [11, 12, 1, 2, 3],
+    sunTemp: [31, 33, 34, 34, 33, 32, 31, 31, 31, 31, 30, 30],
     lat: 8.0863, lon: 98.3381,
     image: "/images/thailand.jpg",
     visual: { sky: "#f39c12", sea: "#16a085", sand: "#f9e79f", accent: "#27ae60", emoji: "🌴", label: "Tropisk paradis" },
@@ -464,6 +470,8 @@ const DESTINATIONS = [
   },
   {
     id: "gran-canaria",
+    sunGuarantee: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    sunTemp: [18, 18, 19, 20, 22, 24, 26, 27, 25, 23, 21, 19],
     lat: 27.9202, lon: -15.5474,
     image: "/images/gran-canaria.jpg",
     visual: { sky: "#f1c40f", sea: "#2e86c1", sand: "#e59866", accent: "#d35400", emoji: "🏜️", label: "Sandklitter" },
@@ -495,6 +503,8 @@ const DESTINATIONS = [
   },
   {
     id: "portugal",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [15, 16, 18, 20, 23, 27, 29, 29, 27, 22, 17, 15],
     lat: 37.1021, lon: -8.6754,
     image: "/images/portugal.jpg",
     visual: { sky: "#3498db", sea: "#1f618d", sand: "#f0e68c", accent: "#e74c3c", emoji: "🪨", label: "Atlanterhavet" },
@@ -526,6 +536,8 @@ const DESTINATIONS = [
   },
   {
     id: "dubai",
+    sunGuarantee: [10, 11, 12, 1, 2, 3, 4],
+    sunTemp: [23, 24, 27, 31, 35, 38, 40, 40, 37, 33, 29, 25],
     lat: 25.2048, lon: 55.2708,
     image: "/images/dubai.jpg",
     visual: { sky: "#e67e22", sea: "#2471a3", sand: "#f8c471", accent: "#8e44ad", emoji: "🌆", label: "Skyline" },
@@ -538,7 +550,7 @@ const DESTINATIONS = [
     tagline: "Fremtidsbyen der imponerer hele familien",
     flightTime: 6.5,
     airports: ["CPH"],
-    budgetLevel: [3],
+    budgetLevel: [2, 3],
     minChildAge: 3,
     bestMonths: [10, 11, 12, 1, 2, 3],
     schoolHolidays: ["vinter", "vinterferie"],
@@ -557,6 +569,8 @@ const DESTINATIONS = [
   },
   {
     id: "bornholm",
+    sunGuarantee: [6, 7, 8],
+    sunTemp: [1, 1, 4, 8, 14, 17, 20, 20, 16, 11, 6, 3],
     lat: 55.1007, lon: 14.9046,
     image: "/images/bornholm.jpg",
     visual: { sky: "#85c1e9", sea: "#2e86c1", sand: "#aed6f1", accent: "#1e8449", emoji: "🌿", label: "Solskinsøen" },
@@ -588,6 +602,8 @@ const DESTINATIONS = [
   },
   {
     id: "italien-toscana",
+    sunGuarantee: [5, 6, 7, 8, 9],
+    sunTemp: [7, 8, 11, 15, 19, 23, 27, 27, 23, 17, 11, 7],
     lat: 43.7711, lon: 11.2486,
     image: "/images/italien.jpg",
     visual: { sky: "#5dade2", sea: "#1a5276", sand: "#f9e79f", accent: "#c0392b", emoji: "🎨", label: "Cinque Terre" },
@@ -619,6 +635,8 @@ const DESTINATIONS = [
   },
   {
     id: "japan",
+    sunGuarantee: [3, 4, 5, 9, 10, 11],
+    sunTemp: [6, 7, 10, 15, 20, 23, 27, 28, 24, 18, 13, 8],
     lat: 35.6762, lon: 139.6503,
     image: "/images/japan.jpg",
     visual: { sky: "#f1948a", sea: "#6c3483", sand: "#fdfefe", accent: "#e74c3c", emoji: "⛩️", label: "Tokyo" },
@@ -650,6 +668,8 @@ const DESTINATIONS = [
   },
   {
     id: "marokko",
+    sunGuarantee: [3, 4, 5, 9, 10, 11],
+    sunTemp: [13, 15, 18, 21, 25, 29, 32, 33, 29, 23, 17, 13],
     lat: 31.6295, lon: -7.9811,
     image: "/images/marokko.jpg",
     visual: { sky: "#e59866", sea: "#2471a3", sand: "#f0b27a", accent: "#c0392b", emoji: "🐪", label: "Nordafrika" },
@@ -681,6 +701,8 @@ const DESTINATIONS = [
   },
   {
     id: "rhodos",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [13, 14, 16, 19, 23, 28, 30, 30, 27, 22, 18, 14],
     lat: 36.4341, lon: 28.2176,
     image: "/images/rhodos.jpg",
     visual: { sky: "#5dade2", sea: "#1f618d", sand: "#f9e79f", accent: "#e74c3c", emoji: "🏛️", label: "Grækenland" },
@@ -712,6 +734,8 @@ const DESTINATIONS = [
   },
   {
     id: "kos",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [13, 14, 16, 19, 23, 28, 30, 30, 27, 22, 17, 14],
     lat: 36.8938, lon: 27.2877,
     image: "/images/kos.jpg",
     visual: { sky: "#85c1e9", sea: "#2471a3", sand: "#fdebd0", accent: "#27ae60", emoji: "🌿", label: "Grækenland" },
@@ -743,6 +767,8 @@ const DESTINATIONS = [
   },
   {
     id: "lanzarote",
+    sunGuarantee: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    sunTemp: [18, 18, 19, 20, 22, 24, 25, 26, 25, 23, 21, 18],
     lat: 28.9635, lon: -13.5477,
     image: "/images/lanzarote.jpg",
     visual: { sky: "#e67e22", sea: "#2980b9", sand: "#c0392b", accent: "#f39c12", emoji: "🌋", label: "Vulkansk ø" },
@@ -774,6 +800,8 @@ const DESTINATIONS = [
   },
   {
     id: "costa-rica",
+    sunGuarantee: [12, 1, 2, 3, 4],
+    sunTemp: [27, 28, 29, 29, 28, 27, 27, 27, 27, 26, 26, 26],
     lat: 9.7489, lon: -83.7534,
     image: "/images/costa-rica.jpg",
     visual: { sky: "#27ae60", sea: "#1a5276", sand: "#f9e79f", accent: "#e74c3c", emoji: "🦋", label: "Jungel & strand" },
@@ -805,6 +833,8 @@ const DESTINATIONS = [
   },
   {
     id: "jordan",
+    sunGuarantee: [3, 4, 5, 9, 10, 11],
+    sunTemp: [12, 14, 17, 23, 28, 32, 34, 34, 31, 26, 19, 13],
     lat: 30.3285, lon: 35.4444,
     image: "/images/jordan.jpg",
     visual: { sky: "#e59866", sea: "#2471a3", sand: "#f0b27a", accent: "#8e44ad", emoji: "🏺", label: "Petra & ørken" },
@@ -836,6 +866,8 @@ const DESTINATIONS = [
   },
   {
     id: "montenegro",
+    sunGuarantee: [6, 7, 8, 9],
+    sunTemp: [7, 8, 11, 15, 20, 24, 28, 28, 23, 17, 12, 8],
     lat: 42.4304, lon: 18.694,
     image: "/images/montenegro.jpg",
     visual: { sky: "#2980b9", sea: "#1a5276", sand: "#abebc6", accent: "#c0392b", emoji: "🏔️", label: "Adriaterhavet" },
@@ -867,6 +899,8 @@ const DESTINATIONS = [
   },
   {
     id: "bulgarien",
+    sunGuarantee: [6, 7, 8],
+    sunTemp: [2, 4, 9, 15, 20, 24, 27, 27, 22, 15, 8, 4],
     lat: 43.2784, lon: 28.0486,
     image: "/images/bulgarien.jpg",
     visual: { sky: "#5dade2", sea: "#1f618d", sand: "#f9e79f", accent: "#e67e22", emoji: "🌻", label: "Sortehavet" },
@@ -900,6 +934,8 @@ const DESTINATIONS = [
   // ── NYE FLY-DESTINATIONER ────────────────────────────────────────────────────
   {
     id: "tyrkiet",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [10, 11, 14, 18, 23, 28, 33, 33, 29, 23, 17, 12],
     lat: 31.9984, lon: 31.1665,
     image: "/images/tyrkiet.jpg",
     visual: { sky: "#2980b9", sea: "#1a5276", sand: "#f9e79f", accent: "#e74c3c", emoji: "🌙", label: "Rivieraen" },
@@ -932,6 +968,8 @@ const DESTINATIONS = [
   },
   {
     id: "cypern",
+    sunGuarantee: [4, 5, 6, 7, 8, 9, 10, 11],
+    sunTemp: [13, 14, 16, 19, 23, 28, 33, 33, 30, 24, 19, 14],
     lat: 34.9174, lon: 33.6338,
     image: "/images/cypern.jpg",
     visual: { sky: "#f39c12", sea: "#2471a3", sand: "#f9e79f", accent: "#8e44ad", emoji: "🏛️", label: "Middelhavet" },
@@ -964,6 +1002,8 @@ const DESTINATIONS = [
   },
   {
     id: "kreta",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [13, 14, 16, 19, 23, 28, 30, 30, 27, 22, 18, 14],
     lat: 35.2401, lon: 25.1142,
     image: "/images/kreta.jpg",
     visual: { sky: "#5dade2", sea: "#1f618d", sand: "#fdebd0", accent: "#e74c3c", emoji: "🫒", label: "Kreta" },
@@ -996,6 +1036,8 @@ const DESTINATIONS = [
   },
   {
     id: "santorini",
+    sunGuarantee: [5, 6, 7, 8, 9, 10],
+    sunTemp: [13, 14, 15, 18, 22, 27, 28, 28, 25, 21, 17, 14],
     lat: 36.3932, lon: 25.4615,
     image: "/images/santorini.jpg",
     visual: { sky: "#85c1e9", sea: "#1f618d", sand: "#f0f3f4", accent: "#e74c3c", emoji: "🌋", label: "Ægæerhavet" },
@@ -1263,7 +1305,7 @@ function computeVibeScore(vibeAnswers) {
 
 function scoreDestination(dest, profile) {
   let score = dest.familyScore;
-  const { children, budget, airports, period, maxFlightHours, vibeAnswers, travelMode } = profile;
+  const { children, budget, airports, period, maxFlightHours, vibeAnswers, departDate } = profile;
 
   // Hard filters
   if (dest.travelMode === "bil") return null; // Kør-selv destinationer skjules
@@ -1280,6 +1322,30 @@ function scoreDestination(dest, profile) {
 
   // Period match
   if (period && dest.schoolHolidays.includes(period)) score += 10;
+
+  // ── SOLGARANTI ──────────────────────────────────────────────────────────────
+  if (profile.hotelPref?.includes("solgaranti") && departDate) {
+    const depMonth = new Date(departDate).getMonth() + 1; // 1-12
+    const sunMonths = dest.sunGuarantee || [];
+    const temps = dest.sunTemp || [];
+    const monthTemp = temps[depMonth - 1] || 20;
+
+    if (!sunMonths.includes(depMonth)) {
+      // Ikke sol-garanteret denne måned — hård straf, destination falder væk
+      score -= 40;
+    } else {
+      // Sol garanteret — giv bonus baseret på temperatur
+      // 18-21°C (Gran Canaria / Lanzarote om vinteren): +5
+      // 22-25°C: +10
+      // 26-29°C: +16
+      // 30°C+:   +22
+      if (monthTemp >= 33)      score += 30;  // Dubai/Thailand nov-apr: dominerer
+      else if (monthTemp >= 28) score += 22;  // Dubai okt, Tyrkiet sommer
+      else if (monthTemp >= 24) score += 14;  // Gran Canaria sommer, Mallorca
+      else if (monthTemp >= 20) score += 7;   // Gran Canaria vinter
+      else                      score += 2;   // Lanzarote vinter
+    }
+  }
 
   // Children count bonus
   if (children.length >= 3) score += 5;
@@ -1364,7 +1430,7 @@ export default function App() {
   };
   const period = derivePeriod(departDate);
 
-  const profile = { children, budget, airports, period, maxFlightHours: maxFlight, hotelPref, vibeAnswers };
+  const profile = { children, budget, airports, period, maxFlightHours: maxFlight, hotelPref, vibeAnswers, departDate };
 
   const addChild    = () => setChildren(c => [...c, { id: Date.now(), age: 6 }]);
   const removeChild = (id) => setChildren(c => c.filter(x => x.id !== id));
@@ -1797,6 +1863,7 @@ export default function App() {
         <OnboardStep step={4} total={5} title="Hvad lægger I vægt på?" sub="Vi bruger det til at fremhæve de rigtige ting." onBack={() => setStep(3)}>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 24 }}>
             {[
+              { v: "solgaranti",   label: "Solgaranti", icon: "☀️", sub: "Garanteret godt vejr" },
               { v: "all-inclusive", label: "All-inclusive", icon: "🍽️", sub: "Alt betalt på forhånd" },
               { v: "pool",          label: "Pool & vandland", icon: "🏊", sub: "Vigtigt for børnene" },
               { v: "strand",        label: "Tæt på stranden", icon: "🏖️", sub: "Under 5 min til vand" },
